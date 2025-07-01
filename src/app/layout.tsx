@@ -21,8 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // The lang and dir attributes will be set by the LanguageProvider on the client
-    <html>
+    // The lang, dir, and theme attributes are managed by their respective client-side providers.
+    // suppressHydrationWarning is used to prevent errors from the initial server/client mismatch.
+    <html suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",

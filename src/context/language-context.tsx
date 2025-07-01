@@ -20,9 +20,17 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("ar");
 
   useEffect(() => {
+    // This effect runs once on the client after hydration.
+    // It safely reads from localStorage and updates the DOM and state.
     const savedLanguage = localStorage.getItem("language") as Language;
     if (savedLanguage && ["ar", "en"].includes(savedLanguage)) {
       setLanguage(savedLanguage);
+      document.documentElement.lang = savedLanguage;
+      document.documentElement.dir = savedLanguage === 'ar' ? 'rtl' : 'ltr';
+    } else {
+      // If nothing is saved, ensure the default is applied to the DOM.
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
     }
   }, []);
 
