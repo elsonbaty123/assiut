@@ -4,10 +4,14 @@ import { useTranslation } from "@/hooks/use-translation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const chats = [
-    { id: 1, agentName: "شركة النيل للتعمير", propertyTitle: "شقة فاخرة للبيع في الزمالك", lastMessage: "بالتأكيد، يمكننا تحديد موعد غداً.", timestamp: "10:30 ص", avatar: "https://placehold.co/100x100.png" },
-    { id: 2, agentName: "أحمد المصري", propertyTitle: "مكتب إداري للإيجار في المهندسين", lastMessage: "تم إرسال كافة التفاصيل عبر البريد الإلكتروني.", timestamp: "أمس", avatar: "https://placehold.co/100x100.png" },
-];
+const chats: { 
+    id: number; 
+    agentName: string; 
+    propertyTitle: string; 
+    lastMessage: string; 
+    timestamp: string; 
+    avatar: string; 
+}[] = [];
 
 
 export default function MyChatsPage() {
