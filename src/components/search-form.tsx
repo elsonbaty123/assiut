@@ -33,7 +33,7 @@ export function SearchForm({ onSearch }: SearchFormProps) {
   const { t, language } = useTranslation();
   
   const [offerType, setOfferType] = useState<SearchFilters['offerType']>('all');
-  const [unitType, setUnitType] = useState('');
+  const [unitType, setUnitType] = useState('all');
   const [region, setRegion] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [minArea, setMinArea] = useState('');
@@ -92,7 +92,7 @@ export function SearchForm({ onSearch }: SearchFormProps) {
                 <SelectValue placeholder={t('selectUnitType')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">{t('all')}</SelectItem>
+                <SelectItem value="all">{t('all')}</SelectItem>
                 <SelectItem value="residential">{t('residential')}</SelectItem>
                 <SelectItem value="administrative">{t('administrative')}</SelectItem>
                 <SelectItem value="furnished">{t('furnished')}</SelectItem>

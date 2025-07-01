@@ -122,7 +122,7 @@ export default function Home() {
       results = results.filter(p => p.type === filters.offerType);
     }
     
-    if (filters.unitType) {
+    if (filters.unitType && filters.unitType !== 'all') {
       results = results.filter(p => p.unitType.includes(filters.unitType as any));
     }
 
