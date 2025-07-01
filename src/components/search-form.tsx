@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -37,17 +37,6 @@ export function SearchForm({ onSearch }: SearchFormProps) {
   const [region, setRegion] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [minArea, setMinArea] = useState('');
-
-  useEffect(() => {
-    onSearch({
-        offerType,
-        unitType,
-        region,
-        maxPrice,
-        minArea,
-    })
-  }, [offerType, unitType, region, maxPrice, minArea, onSearch]);
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
