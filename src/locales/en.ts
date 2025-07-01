@@ -84,6 +84,8 @@ export const en = {
   "loginFailedDescription": "Invalid email or password, or your account is banned.",
   "validationEmail": "Please enter a valid email address.",
   "validationPasswordMin": "Password must be at least 8 characters.",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
   
   // Signup Page
   "signupTitle": "Create a New Account",
@@ -119,6 +121,11 @@ export const en = {
   "incorrectCurrentPassword": "Incorrect current password.",
   "validationPasswordMatch": "Passwords do not match.",
   "validationPasswordRequired": "Current password is required.",
+  "passwordValidationLength": "At least 8 characters",
+  "passwordValidationLowercase": "At least one lowercase letter",
+  "passwordValidationUppercase": "At least one uppercase letter",
+  "passwordValidationDigit": "At least one number",
+  "passwordValidationSpecial": "At least one special character",
 
   // Add Property Page
   "addPropertyTitle": "Add New Property",

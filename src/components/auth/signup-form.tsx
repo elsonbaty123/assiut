@@ -27,6 +27,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/hooks/use-translation";
 import { useAuth } from "@/context/auth-context";
+import { PasswordInput } from "@/components/ui/password-input";
+import { PasswordStrength } from "@/components/password-strength";
 
 export function SignUpForm() {
   const { t, language } = useTranslation();
@@ -41,9 +43,12 @@ export function SignUpForm() {
     email: z.string().email({
       message: t('validationEmail'),
     }),
-    password: z.string().min(8, {
-      message: t('validationPasswordMin'),
-    }),
+    password: z.string()
+      .min(8, { message: t('passwordValidationLength') })
+      .regex(/[a-z]/, { message: t('passwordValidationLowercase') })
+      .regex(/[A-Z]/, { message: t('passwordValidationUppercase') })
+      .regex(/\d/, { message: t('passwordValidationDigit') })
+      .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { message: t('passwordValidationSpecial') }),
     role: z.enum(["client", "broker", "owner"], {
       required_error: t('validationRoleRequired'),
     }),
@@ -117,8 +122,9 @@ export function SignUpForm() {
             <FormItem>
               <FormLabel>{t('password')}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder={t('passwordPlaceholder')} {...field} />
+                <PasswordInput placeholder={t('passwordPlaceholder')} {...field} />
               </FormControl>
+              <PasswordStrength password={field.value} />
               <FormMessage />
             </FormItem>
           )}

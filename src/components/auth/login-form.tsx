@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/context/auth-context";
 import { useTranslation } from "@/hooks/use-translation";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export function LoginForm() {
   const { t } = useTranslation();
@@ -97,7 +98,7 @@ export function LoginForm() {
                 </Link>
               </div>
               <FormControl>
-                <Input type="password" placeholder={t('passwordPlaceholder')} {...field} />
+                <PasswordInput placeholder={t('passwordPlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

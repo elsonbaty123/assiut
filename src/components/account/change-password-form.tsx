@@ -10,7 +10,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -18,6 +17,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useTranslation } from "@/hooks/use-translation";
+import { PasswordInput } from "@/components/ui/password-input";
+import { PasswordStrength } from "@/components/password-strength";
 
 export function ChangePasswordForm() {
   const { t } = useTranslation();
@@ -28,7 +29,12 @@ export function ChangePasswordForm() {
   const formSchema = z
     .object({
       currentPassword: z.string().min(1, { message: t('validationPasswordRequired') }),
-      newPassword: z.string().min(8, { message: t('validationPasswordMin') }),
+      newPassword: z.string()
+        .min(8, { message: t('passwordValidationLength') })
+        .regex(/[a-z]/, { message: t('passwordValidationLowercase') })
+        .regex(/[A-Z]/, { message: t('passwordValidationUppercase') })
+        .regex(/\d/, { message: t('passwordValidationDigit') })
+        .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, { message: t('passwordValidationSpecial') }),
       confirmPassword: z.string(),
     })
     .refine((data) => data.newPassword === data.confirmPassword, {
@@ -80,7 +86,7 @@ export function ChangePasswordForm() {
             <FormItem>
               <FormLabel>{t('currentPassword')}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <PasswordInput placeholder="••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,8 +99,9 @@ export function ChangePasswordForm() {
             <FormItem>
               <FormLabel>{t('newPassword')}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <PasswordInput placeholder="••••••••" {...field} />
               </FormControl>
+               <PasswordStrength password={field.value} />
               <FormMessage />
             </FormItem>
           )}
@@ -106,7 +113,7 @@ export function ChangePasswordForm() {
             <FormItem>
               <FormLabel>{t('confirmNewPassword')}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <PasswordInput placeholder="••••••••" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -84,6 +84,8 @@ export const ar = {
   "loginFailedDescription": "البريد الإلكتروني أو كلمة المرور غير صحيحة، أو الحساب محظور.",
   "validationEmail": "الرجاء إدخال بريد إلكتروني صالح.",
   "validationPasswordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
+  "showPassword": "إظهار كلمة المرور",
+  "hidePassword": "إخفاء كلمة المرور",
 
   // Signup Page
   "signupTitle": "إنشاء حساب جديد",
@@ -119,6 +121,11 @@ export const ar = {
   "incorrectCurrentPassword": "كلمة المرور الحالية غير صحيحة.",
   "validationPasswordMatch": "كلمتا المرور غير متطابقتين.",
   "validationPasswordRequired": "كلمة المرور الحالية مطلوبة.",
+  "passwordValidationLength": "٨ أحرف على الأقل",
+  "passwordValidationLowercase": "حرف صغير واحد على الأقل",
+  "passwordValidationUppercase": "حرف كبير واحد على الأقل",
+  "passwordValidationDigit": "رقم واحد على الأقل",
+  "passwordValidationSpecial": "رمز خاص واحد على الأقل",
 
   // Add Property Page
   "addPropertyTitle": "إضافة عقار جديد",
