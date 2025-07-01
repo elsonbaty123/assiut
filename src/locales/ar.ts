@@ -1,4 +1,3 @@
-
 export const ar = {
   // General
   "Masaakin": "مساكن",
@@ -82,7 +81,7 @@ export const ar = {
   "loginSuccessTitle": "تم تسجيل الدخول بنجاح!",
   "loginSuccessDescription": "جاري توجيهك إلى لوحة التحكم.",
   "loginFailedTitle": "فشل تسجيل الدخول",
-  "loginFailedDescription": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+  "loginFailedDescription": "البريد الإلكتروني أو كلمة المرور غير صحيحة، أو الحساب محظور.",
   "validationEmail": "الرجاء إدخال بريد إلكتروني صالح.",
   "validationPasswordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
 
@@ -149,5 +148,32 @@ export const ar = {
   "adminLoginDescription": "أدخل بياناتك للوصول إلى لوحة التحكم.",
   "adminDashboardTitle": "لوحة تحكم المسؤول",
   "welcomeAdmin": "مرحباً بك، {name}",
-  "adminDashboardDescription": "من هنا يمكنك إدارة جميع جوانب التطبيق."
+  "adminDashboardDescription": "من هنا يمكنك إدارة جميع جوانب التطبيق.",
+  "userManagement": "إدارة المستخدمين",
+  "propertyManagement": "إدارة العقارات",
+  "allUsers": "جميع المستخدمين",
+  "manageUsersDescription": "عرض، حظر، أو حذف حسابات المستخدمين.",
+  "allProperties": "جميع العقارات",
+  "managePropertiesDescription": "عرض أو حذف قوائم العقارات.",
+  "status": "الحالة",
+  "actions": "الإجراءات",
+  "active": "نشط",
+  "banned": "محظور",
+  "confirmAction": "هل أنت متأكد؟",
+  "confirmBanUser": "سيمنع هذا الإجراء المستخدم من تسجيل الدخول. هل تريد المتابعة؟",
+  "confirmUnbanUser": "سيستعيد هذا الإجراء صلاحية تسجيل الدخول للمستخدم. هل تريد المتابعة؟",
+  "confirmDeleteUser": "لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف حساب المستخدم نهائيًا.",
+  "confirmDeleteProperty": "لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف قائمة العقارات نهائيًا.",
+  "cancel": "إلغاء",
+  "confirm": "تأكيد",
+  "delete": "حذف",
+  "userDeletedSuccess": "تم حذف المستخدم بنجاح.",
+  "userStatusUpdated": "تم تحديث حالة المستخدم بنجاح.",
+  "propertyDeletedSuccess": "تم حذف العقار بنجاح.",
+  "actionFailed": "فشل الإجراء. يرجى المحاولة مرة أخرى.",
+  "image": "صورة",
+  "type": "النوع",
+  "sale": "بيع",
+  "rent": "إيجار",
+  "admin": "مسؤول"
 };

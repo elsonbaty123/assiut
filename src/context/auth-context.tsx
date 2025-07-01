@@ -1,15 +1,18 @@
-
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 
 interface User {
+  id: string;
   fullName: string;
   email: string;
   role: "client" | "broker" | "owner" | "admin";
   password?: string;
+  status: "active" | "banned";
 }
+
+type SignupData = Omit<User, "id" | "status">;
 
 interface Credentials {
     email: string;
@@ -17,27 +20,32 @@ interface Credentials {
 }
 
 interface AuthContextType {
-  user: User | null;
+  user: Omit<User, 'password'> | null;
+  users: Omit<User, 'password'>[];
   login: (credentials: Credentials) => Promise<boolean>;
   logout: () => void;
-  signup: (userData: User) => Promise<void>;
+  signup: (userData: SignupData) => Promise<void>;
   updateUser: (userData: Partial<Pick<User, 'fullName'>>) => Promise<boolean>;
+  deleteUser: (userId: string) => Promise<boolean>;
+  toggleUserStatus: (userId: string) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const initialUsers: User[] = [
-    { fullName: "Broker User", email: "broker@example.com", password: "password123", role: "broker" },
-    { fullName: "Owner User", email: "owner@example.com", password: "password123", role: "owner" },
-    { fullName: "Client User", email: "client@example.com", password: "password123", role: "client" },
-    { fullName: "Admin User", email: "admin@example.com", password: "password123", role: "admin" },
+    { id: "user-1", fullName: "Broker User", email: "broker@example.com", password: "password123", role: "broker", status: "active" },
+    { id: "user-2", fullName: "Owner User", email: "owner@example.com", password: "password123", role: "owner", status: "active" },
+    { id: "user-3", fullName: "Client User", email: "client@example.com", password: "password123", role: "client", status: "active" },
+    { id: "user-4", fullName: "Admin User", email: "admin@example.com", password: "password123", role: "admin", status: "active" },
 ];
 
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  const [mockUsers, setMockUsers] = useState<User[]>(initialUsers)
+  const [user, setUser] = useState<Omit<User, 'password'> | null>(null);
+  const [mockUsers, setMockUsers] = useState<User[]>(initialUsers);
   const router = useRouter();
+
+  const safeUsers = mockUsers.map(({ password, ...rest }) => rest);
 
   const login = async (credentials: Credentials): Promise<boolean> => {
     const foundUser = mockUsers.find(
@@ -45,6 +53,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     );
 
     if (foundUser) {
+        if (foundUser.status === 'banned') {
+          return false;
+        }
         const { password, ...userToSet } = foundUser;
         setUser(userToSet);
         if (userToSet.role === 'admin') {
@@ -57,19 +68,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return false;
   };
 
-  const signup = async (userData: User) => {
+  const signup = async (userData: SignupData) => {
     const userExists = mockUsers.some(u => u.email === userData.email);
+    const newUser: User = {
+        ...userData,
+        id: `user-${Date.now()}`,
+        status: 'active'
+    };
+
     if(userExists) {
         // In a real app, you'd return an error.
         // For this mock, we'll just log and overwrite.
         console.warn("User with this email already exists in mock DB.");
         const otherUsers = mockUsers.filter(u => u.email !== userData.email);
-        setMockUsers([...otherUsers, userData]);
+        setMockUsers([...otherUsers, newUser]);
     } else {
-        setMockUsers(prev => [...prev, userData]);
+        setMockUsers(prev => [...prev, newUser]);
     }
     
-    const { password, ...userToSet } = userData;
+    const { password, ...userToSet } = newUser;
     setUser(userToSet);
     router.push("/");
   };
@@ -102,8 +119,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const deleteUser = async (userId: string): Promise<boolean> => {
+    if (user?.id === userId) return false; // Admin cannot delete themselves
+    setMockUsers(prev => prev.filter(u => u.id !== userId));
+    return true;
+  };
+
+  const toggleUserStatus = async (userId: string): Promise<boolean> => {
+    if (user?.id === userId) return false; // Admin cannot ban themselves
+    setMockUsers(prev => prev.map(u => 
+        u.id === userId 
+        ? { ...u, status: u.status === 'active' ? 'banned' : 'active' }
+        : u
+    ));
+    return true;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, logout, signup, updateUser }}>
+    <AuthContext.Provider value={{ user, users: safeUsers, login, logout, signup, updateUser, deleteUser, toggleUserStatus }}>
       {children}
     </AuthContext.Provider>
   );

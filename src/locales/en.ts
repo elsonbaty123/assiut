@@ -1,4 +1,3 @@
-
 export const en = {
   // General
   "Masaakin": "Masaakin",
@@ -82,7 +81,7 @@ export const en = {
   "loginSuccessTitle": "Login successful!",
   "loginSuccessDescription": "Redirecting you to the dashboard.",
   "loginFailedTitle": "Login Failed",
-  "loginFailedDescription": "Invalid email or password.",
+  "loginFailedDescription": "Invalid email or password, or your account is banned.",
   "validationEmail": "Please enter a valid email address.",
   "validationPasswordMin": "Password must be at least 8 characters.",
   
@@ -149,5 +148,32 @@ export const en = {
   "adminLoginDescription": "Enter your credentials to access the dashboard.",
   "adminDashboardTitle": "Admin Dashboard",
   "welcomeAdmin": "Welcome back, {name}",
-  "adminDashboardDescription": "From here you can manage all aspects of the application."
+  "adminDashboardDescription": "From here you can manage all aspects of the application.",
+  "userManagement": "User Management",
+  "propertyManagement": "Property Management",
+  "allUsers": "All Users",
+  "manageUsersDescription": "View, ban, or delete user accounts.",
+  "allProperties": "All Properties",
+  "managePropertiesDescription": "View or delete property listings.",
+  "status": "Status",
+  "actions": "Actions",
+  "active": "Active",
+  "banned": "Banned",
+  "confirmAction": "Are you sure?",
+  "confirmBanUser": "This will prevent the user from logging in. Do you want to continue?",
+  "confirmUnbanUser": "This will restore login access for the user. Do you want to continue?",
+  "confirmDeleteUser": "This action cannot be undone. This will permanently delete the user account.",
+  "confirmDeleteProperty": "This action cannot be undone. This will permanently delete the property listing.",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "delete": "Delete",
+  "userDeletedSuccess": "User deleted successfully.",
+  "userStatusUpdated": "User status updated successfully.",
+  "propertyDeletedSuccess": "Property deleted successfully.",
+  "actionFailed": "Action failed. Please try again.",
+  "image": "Image",
+  "type": "Type",
+  "sale": "Sale",
+  "rent": "Rent",
+  "admin": "Admin"
 };
