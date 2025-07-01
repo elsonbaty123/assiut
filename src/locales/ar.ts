@@ -50,6 +50,7 @@ export const ar = {
   "area": "المساحة (م²)",
   "minArea": "أدنى مساحة",
   "Search": "بحث",
+  "clearFilters": "مسح الفلاتر",
 
   // Property Card & Details
   "Details": "التفاصيل",

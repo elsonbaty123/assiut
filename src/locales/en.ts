@@ -50,6 +50,7 @@ export const en = {
   "area": "Area (m²)",
   "minArea": "Min area",
   "Search": "Search",
+  "clearFilters": "Clear Filters",
 
   // Property Card & Details
   "Details": "Details",

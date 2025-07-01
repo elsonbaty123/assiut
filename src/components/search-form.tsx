@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useTranslation } from "@/hooks/use-translation";
@@ -25,10 +25,11 @@ export interface SearchFilters {
 
 interface SearchFormProps {
   onSearch: (filters: SearchFilters) => void;
+  onClear: () => void;
 }
 
 
-export function SearchForm({ onSearch }: SearchFormProps) {
+export function SearchForm({ onSearch, onClear }: SearchFormProps) {
   const { t, language } = useTranslation();
   
   const [offerType, setOfferType] = useState<SearchFilters['offerType']>('all');
@@ -47,6 +48,15 @@ export function SearchForm({ onSearch }: SearchFormProps) {
         minArea,
     })
   }
+
+  const handleClear = () => {
+    setOfferType('all');
+    setUnitType('all');
+    setRegion('');
+    setMaxPrice('');
+    setMinArea('');
+    onClear();
+  };
 
   return (
     <form
@@ -103,10 +113,15 @@ export function SearchForm({ onSearch }: SearchFormProps) {
           </div>
       </div>
 
-      <Button type="submit" className="w-full lg:w-auto self-end">
-        <Search className="ml-2 h-4 w-4" />
-        {t('Search')}
-      </Button>
+      <div className="flex items-end gap-2">
+        <Button type="submit" className="w-full">
+          <Search className="ml-2 h-4 w-4" />
+          {t('Search')}
+        </Button>
+        <Button type="button" variant="ghost" onClick={handleClear} size="icon" aria-label={t('clearFilters')}>
+          <X className="h-4 w-4" />
+        </Button>
+      </div>
     </form>
   );
 }

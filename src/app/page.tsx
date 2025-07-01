@@ -63,6 +63,11 @@ export default function Home() {
     setIsSearchOpen(false);
   }, [handleSearch]);
 
+  const handleClearFilters = useCallback(() => {
+    setDisplayedProperties(featuredProperties);
+    setIsSearchOpen(false);
+  }, [featuredProperties]);
+
 
   return (
     <>
@@ -90,7 +95,7 @@ export default function Home() {
                               {t('Filter Properties Description')}
                             </DialogDescription>
                         </DialogHeader>
-                        <SearchForm onSearch={handleSearchAndClose} />
+                        <SearchForm onSearch={handleSearchAndClose} onClear={handleClearFilters} />
                     </DialogContent>
                 </Dialog>
             </div>
