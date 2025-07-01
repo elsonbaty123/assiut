@@ -20,7 +20,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useTranslation } from "@/hooks/use-translation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useTheme } from "next-themes";
 
 export function AccountSettingsForm() {
   const { t } = useTranslation();
@@ -29,7 +28,6 @@ export function AccountSettingsForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { resolvedTheme } = useTheme();
 
   const formSchema = z.object({
     fullName: z.string().min(2, {
@@ -116,14 +114,7 @@ export function AccountSettingsForm() {
       )
   }
 
-  const currentAvatarRaw = avatarPreview || user.avatar;
-  let currentAvatar = currentAvatarRaw;
-
-  if (user.role === 'client' && currentAvatarRaw === '__PROMPT_IMAGE_0__') {
-      if (resolvedTheme === 'dark') {
-          currentAvatar = '';
-      }
-  }
+  const currentAvatar = avatarPreview || user.avatar;
 
 
   const roleTranslations = {

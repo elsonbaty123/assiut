@@ -18,19 +18,12 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTranslation } from "@/hooks/use-translation";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
-import { useTheme } from "next-themes";
 
 export function Header() {
   const { user, logout } = useAuth();
   const { t, language } = useTranslation();
-  const { resolvedTheme } = useTheme();
 
-  let avatarSrc = user?.avatar;
-  if (user && user.role === 'client' && user.avatar === '__PROMPT_IMAGE_0__') {
-    if (resolvedTheme === 'dark') {
-      avatarSrc = '';
-    }
-  }
+  const avatarSrc = user?.avatar;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
