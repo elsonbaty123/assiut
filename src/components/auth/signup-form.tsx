@@ -170,7 +170,7 @@ export function SignUpForm() {
                     <RadioGroupItem value="client" id="role-client" className="peer sr-only" />
                     <Label
                       htmlFor="role-client"
-                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer"
+                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:shadow-focus-gradient cursor-pointer"
                     >
                       <User className="mb-3 h-6 w-6" />
                       {t('client')}
@@ -180,7 +180,7 @@ export function SignUpForm() {
                     <RadioGroupItem value="broker" id="role-broker" className="peer sr-only" />
                     <Label
                       htmlFor="role-broker"
-                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer"
+                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:shadow-focus-gradient cursor-pointer"
                     >
                       <Briefcase className="mb-3 h-6 w-6" />
                       {t('broker')}
@@ -190,7 +190,7 @@ export function SignUpForm() {
                     <RadioGroupItem value="owner" id="role-owner" className="peer sr-only" />
                     <Label
                       htmlFor="role-owner"
-                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer"
+                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:shadow-focus-gradient cursor-pointer"
                     >
                       <KeyRound className="mb-3 h-6 w-6" />
                       {t('owner')}

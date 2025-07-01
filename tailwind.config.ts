@@ -53,11 +53,16 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        gold: 'hsl(var(--gold))',
+        silver: 'hsl(var(--silver))',
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      boxShadow: {
+        'focus-gradient': '0 0 0 2px hsl(var(--gold)), 0 0 0 4px hsl(var(--silver))',
       },
       keyframes: {
         'accordion-down': {
