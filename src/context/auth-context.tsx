@@ -20,6 +20,7 @@ interface AuthContextType {
   login: (credentials: Credentials) => Promise<boolean>;
   logout: () => void;
   signup: (userData: User) => Promise<void>;
+  updateUser: (userData: Partial<Pick<User, 'fullName'>>) => Promise<boolean>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -67,6 +68,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     router.push("/");
   };
 
+  const updateUser = async (userData: Partial<Pick<User, 'fullName'>>): Promise<boolean> => {
+    if (!user) return false;
+
+    // Update frontend state
+    const updatedUser = { ...user, ...userData };
+    setUser(updatedUser);
+
+    // Update mock database
+    setMockUsers(currentUsers =>
+      currentUsers.map(u =>
+        u.email === user.email ? { ...u, ...userData } : u
+      )
+    );
+    
+    return true;
+  };
+
 
   const logout = () => {
     setUser(null);
@@ -74,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, signup }}>
+    <AuthContext.Provider value={{ user, login, logout, signup, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

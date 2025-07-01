@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -21,7 +22,7 @@ import { useTranslation } from "@/hooks/use-translation";
 
 export function AccountSettingsForm() {
   const { t } = useTranslation();
-  const { user, login } = useAuth();
+  const { user, updateUser } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,13 +58,14 @@ export function AccountSettingsForm() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    // Update user in our mock context
-    login({ ...user, ...values });
+    const success = await updateUser({ fullName: values.fullName });
 
     setIsLoading(false);
-    toast({
-      title: t('profileUpdateSuccess'),
-    });
+    if(success) {
+      toast({
+        title: t('profileUpdateSuccess'),
+      });
+    }
   }
 
   if (!user) {
@@ -73,6 +75,13 @@ export function AccountSettingsForm() {
           </div>
       )
   }
+
+  const roleTranslations = {
+    client: t('client'),
+    broker: t('broker'),
+    owner: t('owner'),
+  };
+  const displayRole = roleTranslations[user.role];
 
   return (
     <Form {...form}>
@@ -108,9 +117,17 @@ export function AccountSettingsForm() {
             </FormItem>
           )}
         />
+        
+        <div className="space-y-2">
+            <Label>{t('userRole')}</Label>
+            <p className="text-sm font-medium p-3 bg-muted rounded-md text-muted-foreground">
+              {displayRole}
+            </p>
+        </div>
+
         <div className="flex justify-end">
           <Button type="submit" disabled={isLoading}>
-            {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
+            {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             {t('saveChanges')}
           </Button>
         </div>

@@ -107,6 +107,7 @@ export const en = {
   "saveChanges": "Save Changes",
   "pleaseLogin": "Please log in to view this page.",
   "profileUpdateSuccess": "Profile updated successfully!",
+  "userRole": "Account Type",
 
   // Add Property Page
   "addPropertyTitle": "Add New Property",

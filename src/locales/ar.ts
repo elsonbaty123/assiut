@@ -107,6 +107,7 @@ export const ar = {
   "saveChanges": "حفظ التغييرات",
   "pleaseLogin": "الرجاء تسجيل الدخول لعرض هذه الصفحة.",
   "profileUpdateSuccess": "تم تحديث الملف الشخصي بنجاح!",
+  "userRole": "نوع الحساب",
 
   // Add Property Page
   "addPropertyTitle": "إضافة عقار جديد",
