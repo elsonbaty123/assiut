@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useTranslation } from "@/hooks/use-translation";
-import { BottomNavbar } from "./bottom-navbar";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -26,7 +25,6 @@ export function Footer() {
           </div>
         </div>
       </footer>
-      <BottomNavbar />
     </>
   );
 }

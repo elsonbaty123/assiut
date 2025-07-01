@@ -17,12 +17,41 @@ import { useTranslation } from "@/hooks/use-translation";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { Notifications } from "./notifications";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
 
 export function Header() {
   const { user, logout } = useAuth();
   const { t, language } = useTranslation();
 
   const avatarSrc = user?.avatar;
+
+  const navLinks = (
+    <>
+      {user && (
+        <>
+          {user.role === 'admin' && (
+            <SheetClose asChild>
+                <Link href="/admin/dashboard" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "w-full justify-start")}>{t('adminDashboardTitle')}</Link>
+            </SheetClose>
+          )}
+          {(user.role === "broker" || user.role === "owner") && (
+            <SheetClose asChild>
+                <Link href="/dashboard/add-property" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "w-full justify-start")}>{t('Add Property')}</Link>
+            </SheetClose>
+          )}
+          {user.role !== 'admin' && (
+              <SheetClose asChild>
+                <Link href="/my-chats" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "w-full justify-start")}>{t('myChats')}</Link>
+              </SheetClose>
+          )}
+          <SheetClose asChild>
+            <Link href="/account" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "w-full justify-start")}>{t('Account Settings')}</Link>
+          </SheetClose>
+        </>
+      )}
+    </>
+  );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -45,7 +74,8 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-2 rtl:space-x-reverse">
-          <nav className="flex items-center gap-2">
+          {/* Desktop Navigation */}
+          <nav className="hidden items-center gap-2 md:flex">
             <LanguageToggle />
             <ThemeToggle />
             {user ? (
@@ -121,6 +151,67 @@ export function Header() {
               </>
             )}
           </nav>
+
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-6 w-6" />
+                  <span className="sr-only">Open menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side={language === 'ar' ? 'left' : 'right'}>
+                <div className="flex items-center border-b pb-4 mb-4">
+                  <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+                    <span className="font-bold">{t('Masaakin')}</span>
+                  </Link>
+                </div>
+                <div className="flex flex-col h-full">
+                  <nav className="flex flex-col gap-2 flex-grow">
+                    <SheetClose asChild>
+                      <Link href="/" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "w-full justify-start")}>{t('Home')}</Link>
+                    </SheetClose>
+                    {user ? (
+                      <>
+                        {navLinks}
+                        <DropdownMenuSeparator className="my-2"/>
+                        <div className="flex items-center gap-4 px-3">
+                           <Avatar className="h-10 w-10">
+                              <AvatarImage src={avatarSrc} alt={user.fullName}/>
+                              <AvatarFallback>{user.fullName.charAt(0)}</AvatarFallback>
+                           </Avatar>
+                           <div>
+                              <p className="text-sm font-medium">{user.fullName}</p>
+                              <p className="text-xs text-muted-foreground">{user.email}</p>
+                           </div>
+                        </div>
+                         <SheetClose asChild>
+                            <Button variant="ghost" size="lg" onClick={() => { logout(); }} className="w-full justify-start mt-4">
+                            {t('Logout')}
+                            </Button>
+                        </SheetClose>
+                      </>
+                    ) : (
+                      <>
+                        <SheetClose asChild>
+                          <Link href="/login" className={cn(buttonVariants({ variant: "ghost", size: "lg" }), "w-full justify-start")}>{t('Login')}</Link>
+                        </SheetClose>
+                        <SheetClose asChild>
+                          <Link href="/signup" className={cn(buttonVariants({ variant: "default", size: "lg" }), "w-full justify-start")}>{t('Sign Up')}</Link>
+                        </SheetClose>
+                      </>
+                    )}
+                  </nav>
+                  <div className="flex justify-center gap-4 py-4 mt-auto border-t">
+                    <LanguageToggle />
+                    <ThemeToggle />
+                  </div>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>
