@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useTranslation } from "@/hooks/use-translation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTheme } from "next-themes";
 
 export function AccountSettingsForm() {
   const { t } = useTranslation();
@@ -28,6 +29,7 @@ export function AccountSettingsForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { resolvedTheme } = useTheme();
 
   const formSchema = z.object({
     fullName: z.string().min(2, {
@@ -64,7 +66,7 @@ export function AccountSettingsForm() {
         case 'admin': return 'https://placehold.co/128x128/2F4F4F/FFFFFF.png?text=Admin';
         case 'owner': return 'https://placehold.co/128x128/D4AF37/000000.png?text=Owner';
         case 'broker': return 'https://placehold.co/128x128/C0C0C0/000000.png?text=Broker';
-        case 'client': return 'https://placehold.co/128x128/A9A9A9/FFFFFF.png?text=Client';
+        case 'client': return '__PROMPT_IMAGE_0__';
         default: return 'https://placehold.co/128x128.png';
     }
   }
@@ -114,7 +116,15 @@ export function AccountSettingsForm() {
       )
   }
 
-  const currentAvatar = avatarPreview || user.avatar;
+  const currentAvatarRaw = avatarPreview || user.avatar;
+  let currentAvatar = currentAvatarRaw;
+
+  if (user.role === 'client' && currentAvatarRaw === '__PROMPT_IMAGE_0__') {
+      if (resolvedTheme === 'dark') {
+          currentAvatar = '';
+      }
+  }
+
 
   const roleTranslations = {
     client: t('client'),
