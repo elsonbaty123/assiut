@@ -209,5 +209,10 @@ export const en = {
   "myChats": "My Chats",
   "myChatsDescription": "View all your conversations with property agents.",
   "relatedTo": "Regarding",
-  "noChatsFound": "No chats found yet."
+  "noChatsFound": "No chats found yet.",
+  "myProperties": "My Properties",
+  "myPropertiesDescription": "View and manage the properties you have listed.",
+  "noPropertiesFoundTitle": "No Properties Found",
+  "noPropertiesFoundDescription": "You haven't listed any properties yet. Get started by adding your first one.",
+  "addFirstProperty": "Add Your First Property"
 };

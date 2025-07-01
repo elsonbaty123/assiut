@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, MessageSquare, User } from "lucide-react";
+import { Home, MessageSquare, User, Building } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { useTranslation } from "@/hooks/use-translation";
 import { cn } from "@/lib/utils";
@@ -12,19 +12,40 @@ export function BottomNavbar() {
   const { t } = useTranslation();
   const pathname = usePathname();
 
-  if (!user || user.role !== 'client') {
+  if (!user) {
     return null;
   }
 
-  const navItems = [
+  const clientNavItems = [
     { href: "/", label: t('Home'), icon: Home },
     { href: "/my-chats", label: t('myChats'), icon: MessageSquare },
     { href: "/account", label: t('myAccount'), icon: User },
   ];
 
+  const ownerBrokerNavItems = [
+    { href: "/", label: t('Home'), icon: Home },
+    { href: "/dashboard/my-properties", label: t('myProperties'), icon: Building },
+    { href: "/my-chats", label: t('myChats'), icon: MessageSquare },
+    { href: "/account", label: t('myAccount'), icon: User },
+  ];
+  
+  let navItems: { href: string; label: string; icon: React.ElementType }[] = [];
+  let gridCols = '';
+
+  if (user.role === 'client') {
+    navItems = clientNavItems;
+    gridCols = 'grid-cols-3';
+  } else if (user.role === 'broker' || user.role === 'owner') {
+    navItems = ownerBrokerNavItems;
+    gridCols = 'grid-cols-4';
+  } else {
+    return null; // Don't show for admin or other roles
+  }
+
+
   return (
     <div className="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-background border-t border-border">
-      <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
+      <div className={cn("grid h-full max-w-lg mx-auto font-medium", gridCols)}>
         {navItems.map((item) => (
           <Link
             key={item.href}

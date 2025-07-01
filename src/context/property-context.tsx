@@ -37,7 +37,7 @@ const initialProperties: Property[] = [
     bathrooms: 1,
     floor: 10,
     utilities: ["electricity", "water"],
-    agent: { name: "أحمد المصري", avatar: "https://placehold.co/100x100.png" },
+    agent: { name: "Broker User", avatar: "https://placehold.co/100x100.png" },
     dataAiHint: "office building"
   },
   {
@@ -67,7 +67,7 @@ const initialProperties: Property[] = [
     location_en: "New Cairo",
     area: 600,
     image: "https://placehold.co/600x400.png",
-    agent: { name: "شركة البناء الحديث", avatar: "https://placehold.co/100x100.png" },
+    agent: { name: "Owner User", avatar: "https://placehold.co/100x100.png" },
     dataAiHint: "empty land plot"
   },
   {
@@ -101,7 +101,7 @@ const initialProperties: Property[] = [
     image: "https://placehold.co/600x400.png",
     bedrooms: 0,
     bathrooms: 0,
-    agent: { name: "مساحات العمل الذكية", avatar: "https://placehold.co/100x100.png" },
+    agent: { name: "Broker User", avatar: "https://placehold.co/100x100.png" },
     dataAiHint: "coworking space"
   },
 ];

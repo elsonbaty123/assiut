@@ -209,5 +209,10 @@ export const ar = {
   "myChats": "محادثاتي",
   "myChatsDescription": "عرض جميع محادثاتك مع وكلاء العقارات.",
   "relatedTo": "بخصوص",
-  "noChatsFound": "لا توجد محادثات حتى الآن."
+  "noChatsFound": "لا توجد محادثات حتى الآن.",
+  "myProperties": "عقاراتي",
+  "myPropertiesDescription": "عرض وإدارة العقارات التي قمت بإدراجها.",
+  "noPropertiesFoundTitle": "لم يتم العثور على عقارات",
+  "noPropertiesFoundDescription": "لم تقم بإضافة أي عقارات بعد. ابدأ بإضافة عقارك الأول.",
+  "addFirstProperty": "أضف عقارك الأول"
 };
