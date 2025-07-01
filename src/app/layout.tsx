@@ -12,7 +12,7 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Masaakin | مساكن",
+  title: "Open City | اوبن سيتي",
   description: "منصة العقارات الرائدة لإيجار وبيع الشقق والأراضي.",
 };
 

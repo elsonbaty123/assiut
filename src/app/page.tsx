@@ -73,7 +73,7 @@ export default function Home() {
     <>
       <section className="relative bg-primary/10 pt-16 md:pt-24 lg:pt-32 pb-16">
         <div className="container mx-auto px-4 text-center">
-            <Badge variant="secondary" className="mb-4 text-lg">{t('Masaakin')}</Badge>
+            <Badge variant="secondary" className="mb-4 text-lg">{t('AppName')}</Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary-foreground/90">
               {t('heroTitle')}
             </h1>

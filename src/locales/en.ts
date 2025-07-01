@@ -1,6 +1,6 @@
 export const en = {
   // General
-  "Masaakin": "Masaakin",
+  "AppName": "Open City",
   "egp": "EGP",
   "sqm": "m²",
   "perYear": "/year",
@@ -21,7 +21,7 @@ export const en = {
   // Footer
   "Privacy Policy": "Privacy Policy",
   "Terms of Use": "Terms of Use",
-  "copyright": "© {year} Masaakin. All rights reserved.",
+  "copyright": "© {year} Open City. All rights reserved.",
 
   // Home Page
   "heroTitle": "Find Your Next Home or Investment",

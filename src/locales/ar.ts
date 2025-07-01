@@ -1,6 +1,6 @@
 export const ar = {
   // General
-  "Masaakin": "مساكن",
+  "AppName": "اوبن سيتي",
   "egp": "جنيه مصري",
   "sqm": "م²",
   "perYear": "/سنوي",
@@ -21,7 +21,7 @@ export const ar = {
   // Footer
   "Privacy Policy": "سياسة الخصوصية",
   "Terms of Use": "شروط الاستخدام",
-  "copyright": "© {year} مساكن. جميع الحقوق محفوظة.",
+  "copyright": "© {year} اوبن سيتي. جميع الحقوق محفوظة.",
 
   // Home Page
   "heroTitle": "اعثر على منزلك أو استثمارك القادم",
