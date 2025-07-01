@@ -109,6 +109,16 @@ export const ar = {
   "pleaseLogin": "الرجاء تسجيل الدخول لعرض هذه الصفحة.",
   "profileUpdateSuccess": "تم تحديث الملف الشخصي بنجاح!",
   "userRole": "نوع الحساب",
+  "changePasswordTitle": "تغيير كلمة المرور",
+  "changePasswordDescription": "قم بتحديث كلمة المرور الخاصة بك هنا.",
+  "currentPassword": "كلمة المرور الحالية",
+  "newPassword": "كلمة المرور الجديدة",
+  "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+  "passwordUpdateSuccess": "تم تحديث كلمة المرور بنجاح!",
+  "passwordUpdateFailed": "فشل تحديث كلمة المرور",
+  "incorrectCurrentPassword": "كلمة المرور الحالية غير صحيحة.",
+  "validationPasswordMatch": "كلمتا المرور غير متطابقتين.",
+  "validationPasswordRequired": "كلمة المرور الحالية مطلوبة.",
 
   // Add Property Page
   "addPropertyTitle": "إضافة عقار جديد",

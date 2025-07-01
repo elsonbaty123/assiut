@@ -109,6 +109,16 @@ export const en = {
   "pleaseLogin": "Please log in to view this page.",
   "profileUpdateSuccess": "Profile updated successfully!",
   "userRole": "Account Type",
+  "changePasswordTitle": "Change Password",
+  "changePasswordDescription": "Update your password here.",
+  "currentPassword": "Current Password",
+  "newPassword": "New Password",
+  "confirmNewPassword": "Confirm New Password",
+  "passwordUpdateSuccess": "Password updated successfully!",
+  "passwordUpdateFailed": "Password update failed.",
+  "incorrectCurrentPassword": "Incorrect current password.",
+  "validationPasswordMatch": "Passwords do not match.",
+  "validationPasswordRequired": "Current password is required.",
 
   // Add Property Page
   "addPropertyTitle": "Add New Property",

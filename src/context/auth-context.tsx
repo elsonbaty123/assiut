@@ -28,6 +28,7 @@ interface AuthContextType {
   updateUser: (userData: Partial<Pick<User, 'fullName'>>) => Promise<boolean>;
   deleteUser: (userId: string) => Promise<boolean>;
   toggleUserStatus: (userId: string) => Promise<boolean>;
+  changePassword: (passwords: { currentPassword: string; newPassword: string }) => Promise<{ success: boolean; message: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -135,8 +136,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return true;
   };
 
+  const changePassword = async (passwords: { currentPassword: string; newPassword: string }): Promise<{ success: boolean; message: string }> => {
+    if (!user) return { success: false, message: 'pleaseLogin' };
+
+    const userInDb = mockUsers.find(u => u.id === user.id);
+
+    if (!userInDb || userInDb.password !== passwords.currentPassword) {
+        return { success: false, message: 'incorrectCurrentPassword' };
+    }
+
+    setMockUsers(currentUsers =>
+        currentUsers.map(u =>
+            u.id === user.id ? { ...u, password: passwords.newPassword } : u
+        )
+    );
+
+    return { success: true, message: 'passwordUpdateSuccess' };
+  };
+
   return (
-    <AuthContext.Provider value={{ user, users: safeUsers, login, logout, signup, updateUser, deleteUser, toggleUserStatus }}>
+    <AuthContext.Provider value={{ user, users: safeUsers, login, logout, signup, updateUser, deleteUser, toggleUserStatus, changePassword }}>
       {children}
     </AuthContext.Provider>
   );
