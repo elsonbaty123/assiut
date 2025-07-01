@@ -20,6 +20,7 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   const isForSale = property.type === "sale";
+  const isLand = property.unitType.includes("land");
 
   return (
     <Card className="flex flex-col overflow-hidden transition-all hover:shadow-lg">
@@ -63,7 +64,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </div>
         
         <div className="flex justify-between items-center text-sm text-foreground">
-           {property.unitType[0] !== 'land' && (
+           {!isLand && (
              <>
                 <div className="flex items-center gap-2">
                     <BedDouble className="w-4 h-4 text-muted-foreground" />
