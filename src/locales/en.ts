@@ -27,6 +27,7 @@ export const en = {
   "heroTitle": "Find Your Next Home or Investment",
   "heroSubtitle": "An integrated platform that brings together owners, brokers, and clients. Start your search now.",
   "Featured Properties": "Featured Properties",
+  "noResultsFound": "No search results found.",
 
   // Search Form
   "offerType": "Offer Type",

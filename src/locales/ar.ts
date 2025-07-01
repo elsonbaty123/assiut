@@ -27,6 +27,7 @@ export const ar = {
   "heroTitle": "اعثر على منزلك أو استثمارك القادم",
   "heroSubtitle": "منصة متكاملة تجمع الملاك والسماسرة والعملاء. ابدأ البحث الآن.",
   "Featured Properties": "عقارات مميزة",
+  "noResultsFound": "لم يتم العثور على نتائج بحث.",
 
   // Search Form
   "offerType": "نوع العرض",

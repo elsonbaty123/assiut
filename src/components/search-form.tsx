@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,19 +16,50 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useTranslation } from "@/hooks/use-translation";
 
-export function SearchForm() {
+export interface SearchFilters {
+    offerType: 'all' | 'sale' | 'rent';
+    unitType: string;
+    region: string;
+    maxPrice: string;
+    minArea: string;
+}
+
+interface SearchFormProps {
+  onSearch: (filters: SearchFilters) => void;
+}
+
+
+export function SearchForm({ onSearch }: SearchFormProps) {
   const { t, language } = useTranslation();
+  
+  const [offerType, setOfferType] = useState<SearchFilters['offerType']>('all');
+  const [unitType, setUnitType] = useState('');
+  const [region, setRegion] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [minArea, setMinArea] = useState('');
+
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch({
+        offerType,
+        unitType,
+        region,
+        maxPrice,
+        minArea,
+    })
+  }
 
   return (
     <Card className="shadow-xl -mb-16">
       <CardContent className="p-6">
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end"
         >
           <div className="space-y-2">
             <Label className="text-sm font-medium">{t('offerType')}</Label>
-            <RadioGroup defaultValue="all" className="flex gap-4 pt-2">
+            <RadioGroup value={offerType} onValueChange={(value: SearchFilters['offerType']) => setOfferType(value)} className="flex gap-4 pt-2">
               <div className="flex items-center space-x-2 rtl:space-x-reverse">
                 <RadioGroupItem value="all" id="all" />
                 <Label htmlFor="all" className="font-normal">{t('all')}</Label>
@@ -45,7 +77,7 @@ export function SearchForm() {
           
           <div className="space-y-2">
             <label className="text-sm font-medium">{t('unitType')}</label>
-            <Select dir={language === 'ar' ? 'rtl' : 'ltr'}>
+            <Select dir={language === 'ar' ? 'rtl' : 'ltr'} value={unitType} onValueChange={setUnitType}>
               <SelectTrigger>
                 <SelectValue placeholder={t('selectUnitType')} />
               </SelectTrigger>
@@ -60,17 +92,17 @@ export function SearchForm() {
 
           <div className="space-y-2">
             <label className="text-sm font-medium">{t('region')}</label>
-            <Input placeholder={t('regionPlaceholder')} />
+            <Input placeholder={t('regionPlaceholder')} value={region} onChange={(e) => setRegion(e.target.value)} />
           </div>
 
           <div className="grid grid-cols-2 gap-2">
               <div className="space-y-2">
                   <label className="text-sm font-medium">{t('price')}</label>
-                  <Input type="number" placeholder={t('maxPrice')} />
+                  <Input type="number" placeholder={t('maxPrice')} value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
               </div>
               <div className="space-y-2">
                   <label className="text-sm font-medium">{t('area')}</label>
-                  <Input type="number" placeholder={t('minArea')} />
+                  <Input type="number" placeholder={t('minArea')} value={minArea} onChange={(e) => setMinArea(e.target.value)} />
               </div>
           </div>
 

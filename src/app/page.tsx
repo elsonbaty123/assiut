@@ -1,7 +1,8 @@
 "use client";
 
+import { useState, useCallback } from "react";
 import { PropertyCard } from "@/components/property-card";
-import { SearchForm } from "@/components/search-form";
+import { SearchForm, type SearchFilters } from "@/components/search-form";
 import type { Property } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/hooks/use-translation";
@@ -112,6 +113,38 @@ const featuredProperties: Property[] = [
 
 export default function Home() {
   const { t } = useTranslation();
+  const [displayedProperties, setDisplayedProperties] = useState<Property[]>(featuredProperties);
+
+  const handleSearch = useCallback((filters: SearchFilters) => {
+    let results = featuredProperties;
+
+    if (filters.offerType !== 'all') {
+      results = results.filter(p => p.type === filters.offerType);
+    }
+    
+    if (filters.unitType) {
+      results = results.filter(p => p.unitType.includes(filters.unitType as any));
+    }
+
+    if (filters.region) {
+      const searchTerm = filters.region.toLowerCase();
+      results = results.filter(p => 
+        p.location.toLowerCase().includes(searchTerm) || 
+        p.location_en?.toLowerCase().includes(searchTerm)
+      );
+    }
+
+    if (filters.maxPrice) {
+      results = results.filter(p => p.price <= Number(filters.maxPrice));
+    }
+
+    if (filters.minArea) {
+      results = results.filter(p => p.area >= Number(filters.minArea));
+    }
+
+    setDisplayedProperties(results);
+  }, []);
+
 
   return (
     <>
@@ -126,7 +159,7 @@ export default function Home() {
             </p>
         </div>
         <div className="relative container mx-auto px-4 mt-8 md:mt-12">
-           <SearchForm />
+           <SearchForm onSearch={handleSearch} />
         </div>
          <div
           className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-background to-transparent"
@@ -139,9 +172,15 @@ export default function Home() {
             {t('Featured Properties')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
+            {displayedProperties.length > 0 ? (
+                displayedProperties.map((property) => (
+                    <PropertyCard key={property.id} property={property} />
+                ))
+            ) : (
+                <div className="col-span-full text-center py-10">
+                    <p className="text-xl text-muted-foreground">{t('noResultsFound')}</p>
+                </div>
+            )}
           </div>
         </div>
       </section>
