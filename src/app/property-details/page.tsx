@@ -47,6 +47,13 @@ export default function PropertyDetailsPage() {
     water: t('water'),
   }
 
+  const statusTranslations: { [key: string]: string } = {
+    ready: t('ready'),
+    under_construction: t('under_construction'),
+  };
+
+  const isLand = property.unitType.includes("land");
+
   return (
     <div className="container mx-auto py-12 px-4">
       <div className="grid lg:grid-cols-3 gap-12">
@@ -92,6 +99,11 @@ export default function PropertyDetailsPage() {
                         {unitTypeTranslations[type as keyof typeof unitTypeTranslations]}
                     </Badge>
                 ))}
+                {property.status && !isLand && (
+                    <Badge key={property.status} variant="outline">
+                        {statusTranslations[property.status]}
+                    </Badge>
+                )}
             </div>
 
             <Separator className="my-8" />
@@ -143,7 +155,7 @@ export default function PropertyDetailsPage() {
                     <div key={util} className="flex items-center gap-2 p-3 bg-secondary/30 rounded-lg">
                         {utilityIcons[util]}
                         <span className="font-medium">
-                            {utilityTranslations[util]}
+                            {utilityTranslations[util as keyof typeof utilityTranslations]}
                         </span>
                     </div>
                 ))}

@@ -17,6 +17,7 @@ import { useTranslation } from "@/hooks/use-translation";
 
 export interface SearchFilters {
     offerType: 'all' | 'sale' | 'rent';
+    propertyStatus: 'all' | 'ready' | 'under_construction';
     unitType: string;
     region: string;
     maxPrice: string;
@@ -33,6 +34,7 @@ export function SearchForm({ onSearch, onClear }: SearchFormProps) {
   const { t, language } = useTranslation();
   
   const [offerType, setOfferType] = useState<SearchFilters['offerType']>('all');
+  const [propertyStatus, setPropertyStatus] = useState<SearchFilters['propertyStatus']>('all');
   const [unitType, setUnitType] = useState('all');
   const [region, setRegion] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -42,6 +44,7 @@ export function SearchForm({ onSearch, onClear }: SearchFormProps) {
     e.preventDefault();
     onSearch({
         offerType,
+        propertyStatus,
         unitType,
         region,
         maxPrice,
@@ -51,6 +54,7 @@ export function SearchForm({ onSearch, onClear }: SearchFormProps) {
 
   const handleClear = () => {
     setOfferType('all');
+    setPropertyStatus('all');
     setUnitType('all');
     setRegion('');
     setMaxPrice('');
@@ -61,7 +65,7 @@ export function SearchForm({ onSearch, onClear }: SearchFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end pt-4"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end pt-4"
     >
       <div className="space-y-2">
         <Label className="text-sm font-medium">{t('offerType')}</Label>
@@ -77,6 +81,24 @@ export function SearchForm({ onSearch, onClear }: SearchFormProps) {
           <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <RadioGroupItem value="rent" id="rent" />
             <Label htmlFor="rent" className="font-normal">{t('forRent')}</Label>
+          </div>
+        </RadioGroup>
+      </div>
+
+       <div className="space-y-2">
+        <Label className="text-sm font-medium">{t('propertyStatus')}</Label>
+        <RadioGroup value={propertyStatus} onValueChange={(value: SearchFilters['propertyStatus']) => setPropertyStatus(value)} className="flex gap-4 pt-2">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <RadioGroupItem value="all" id="status-all" />
+            <Label htmlFor="status-all" className="font-normal">{t('all')}</Label>
+          </div>
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <RadioGroupItem value="ready" id="status-ready" />
+            <Label htmlFor="status-ready" className="font-normal">{t('ready')}</Label>
+          </div>
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
+            <RadioGroupItem value="under_construction" id="status-under_construction" />
+            <Label htmlFor="status-under_construction" className="font-normal">{t('under_construction')}</Label>
           </div>
         </RadioGroup>
       </div>

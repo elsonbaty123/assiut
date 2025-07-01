@@ -32,7 +32,12 @@ export function PropertyCard({ property }: PropertyCardProps) {
     administrative: t('administrative'),
     furnished: t('furnished'),
     land: t('land'),
-  }
+  };
+
+  const statusTranslations: { [key: string]: string } = {
+    ready: t('ready'),
+    under_construction: t('under_construction'),
+  };
 
   return (
     <Card className="flex flex-col overflow-hidden transition-all hover:shadow-lg">
@@ -47,12 +52,16 @@ export function PropertyCard({ property }: PropertyCardProps) {
               data-ai-hint={property.dataAiHint}
             />
         </Link>
-        <Badge
-          className="absolute top-3 right-3"
-          variant={isForSale ? "destructive" : "secondary"}
-        >
-          {isForSale ? t('forSale') : t('forRent')}
-        </Badge>
+        <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
+            <Badge variant={isForSale ? "destructive" : "secondary"}>
+                {isForSale ? t('forSale') : t('forRent')}
+            </Badge>
+            {property.status && !isLand && (
+                <Badge variant="outline">
+                    {statusTranslations[property.status]}
+                </Badge>
+            )}
+        </div>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
         <CardTitle className="mb-2 text-lg">
@@ -67,7 +76,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
         <div className="flex flex-wrap gap-2 mb-4">
             {property.unitType.map((type) => (
                 <Badge key={type} variant="outline">
-                    {unitTypeTranslations[type]}
+                    {unitTypeTranslations[type as keyof typeof unitTypeTranslations]}
                 </Badge>
             ))}
         </div>

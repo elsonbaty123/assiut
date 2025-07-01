@@ -51,6 +51,7 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
 
       const apartmentSchema = baseSchema.extend({
         type: z.enum(["rent", "sale"], { required_error: t('validationOfferTypeRequired') }),
+        status: z.enum(["ready", "under_construction"], { required_error: t('validationStatusRequired') }),
         unitType: z.array(z.string()).refine((value) => value.some((item) => item), {
           message: t('validationUnitTypeRequired'),
         }),
@@ -71,6 +72,7 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
         resolver: zodResolver(formSchema),
         defaultValues: type === 'apartment' ? {
             type: "sale",
+            status: "ready",
             unitType: ["residential"],
             bedrooms: 0,
             bathrooms: 1,
@@ -134,6 +136,37 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
                           <RadioGroupItem value="rent" id="rent" />
                         </FormControl>
                         <Label htmlFor="rent" className="font-normal">{t('forRent')}</Label>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel>{t('propertyStatus')}</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex gap-4"
+                    >
+                      <FormItem className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <FormControl>
+                          <RadioGroupItem value="ready" id="ready" />
+                        </FormControl>
+                        <Label htmlFor="ready" className="font-normal">{t('ready')}</Label>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <FormControl>
+                          <RadioGroupItem value="under_construction" id="under_construction" />
+                        </FormControl>
+                        <Label htmlFor="under_construction" className="font-normal">{t('under_construction')}</Label>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>

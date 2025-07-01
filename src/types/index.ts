@@ -17,6 +17,7 @@ export type Property = {
   description_en?: string;
   agent: Agent;
   dataAiHint?: string;
+  status?: "ready" | "under_construction";
 };
 
 export type Agent = {

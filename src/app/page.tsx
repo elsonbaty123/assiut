@@ -29,6 +29,10 @@ export default function Home() {
       results = results.filter(p => p.type === filters.offerType);
     }
     
+    if (filters.propertyStatus && filters.propertyStatus !== 'all') {
+      results = results.filter(p => p.status === filters.propertyStatus);
+    }
+
     if (filters.unitType && filters.unitType !== 'all') {
       results = results.filter(p => p.unitType.includes(filters.unitType as any));
     }
@@ -88,7 +92,7 @@ export default function Home() {
                             {t('Search Properties')}
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-3xl">
+                    <DialogContent className="sm:max-w-4xl">
                         <DialogHeader>
                             <DialogTitle>{t('Filter Properties')}</DialogTitle>
                             <DialogDescription>
