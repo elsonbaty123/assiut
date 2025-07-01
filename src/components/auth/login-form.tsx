@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/context/auth-context";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -31,7 +31,7 @@ const formSchema = z.object({
 
 export function LoginForm() {
   const { toast } = useToast();
-  const router = useRouter();
+  const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,8 +47,22 @@ export function LoginForm() {
     // Simulate API call for login
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    // In a real app, you would handle success/error from the API
-    console.log("Logged in with:", values);
+    // In a real app, this would come from the API, and you would handle success/error
+    const userName = values.email
+      .split("@")[0]
+      .replace(".", " ")
+      .replace(/\b\w/g, (l) => l.toUpperCase());
+    const userRole = values.email.includes("broker")
+      ? "broker"
+      : values.email.includes("owner")
+      ? "owner"
+      : "client";
+
+    login({
+      fullName: userName,
+      email: values.email,
+      role: userRole,
+    });
 
     setIsLoading(false);
 
@@ -57,10 +71,7 @@ export function LoginForm() {
       description: "جاري توجيهك إلى الصفحة الرئيسية.",
     });
 
-    // Redirect to home page after a short delay
-    setTimeout(() => {
-      router.push("/");
-    }, 2000);
+    // Redirect is handled by the `login` function in `auth-context`
   }
 
   return (
