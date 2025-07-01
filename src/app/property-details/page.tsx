@@ -12,13 +12,13 @@ import { ChatInterface } from "@/components/property/chat-interface";
 
 const property = {
   id: "1",
-  title: "شقة فاخرة للبيع في قلب الرياض",
-  title_en: "Luxury Apartment for Sale in the Heart of Riyadh",
+  title: "شقة فاخرة للبيع في الزمالك",
+  title_en: "Luxury Apartment for Sale in Zamalek",
   type: "sale" as const,
   unitType: ["residential", "furnished"],
-  price: 1200000,
-  location: "حي العليا، الرياض",
-  location_en: "Al Olaya, Riyadh",
+  price: 3500000,
+  location: "الزمالك، القاهرة",
+  location_en: "Zamalek, Cairo",
   area: 180,
   images: [
     "https://placehold.co/800x600.png",
@@ -29,9 +29,9 @@ const property = {
   bathrooms: 2,
   floor: 5,
   utilities: ["gas", "electricity", "water"] as ("gas" | "electricity" | "water")[],
-  description: "شقة عصرية بتشطيبات فاخرة في برج سكني حديث. تتميز بإطلالات بانورامية على المدينة وموقع استراتيجي بالقرب من جميع الخدمات والمراكز التجارية. الشقة مؤثثة بالكامل بأثاث راقٍ وجاهزة للسكن الفوري. مثالية للعائلات التي تبحث عن نمط حياة مريح وفاخر.",
-  description_en: "A modern apartment with luxury finishes in a modern residential tower. It features panoramic city views and a strategic location close to all services and shopping centers. The apartment is fully furnished with elegant furniture and is ready for immediate occupancy. Ideal for families looking for a comfortable and luxurious lifestyle.",
-  agent: { name: "شركة الأفق للعقارات", avatar: "https://placehold.co/100x100.png" },
+  description: "شقة عصرية بتشطيبات فاخرة في برج سكني حديث. تتميز بإطلالات بانورامية على النيل وموقع استراتيجي بالقرب من جميع الخدمات والمراكز التجارية. الشقة مؤثثة بالكامل بأثاث راقٍ وجاهزة للسكن الفوري. مثالية للعائلات التي تبحث عن نمط حياة مريح وفاخر.",
+  description_en: "A modern apartment with luxury finishes in a modern residential tower. It features panoramic Nile views and a strategic location close to all services and shopping centers. The apartment is fully furnished with elegant furniture and is ready for immediate occupancy. Ideal for families looking for a comfortable and luxurious lifestyle.",
+  agent: { name: "شركة النيل للتعمير", avatar: "https://placehold.co/100x100.png" },
   dataAiHint: "luxury apartment interior"
 };
 
@@ -71,7 +71,7 @@ export default function PropertyDetailsPage() {
             </div>
             
             <div className="flex items-baseline gap-4 mb-6">
-                 <span className="text-4xl font-bold text-primary">{property.price.toLocaleString(language === 'ar' ? 'ar-SA' : 'en-US')} {t('sar')}</span>
+                 <span className="text-4xl font-bold text-primary">{property.price.toLocaleString(language === 'ar' ? 'ar-EG' : 'en-US')} {t('egp')}</span>
                 {property.type === 'rent' && <span className="text-xl text-muted-foreground">{t('perYear')}</span>}
             </div>
 

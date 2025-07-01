@@ -94,7 +94,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
       </CardContent>
       <CardFooter className="p-4 bg-secondary/30 flex justify-between items-center">
         <p className="text-xl font-bold text-primary">
-          {property.price.toLocaleString(language === 'ar' ? "ar-SA" : "en-US")} {t('sar')}
+          {property.price.toLocaleString(language === 'ar' ? "ar-EG" : "en-US")} {t('egp')}
           {!isForSale && <span className="text-sm font-normal text-muted-foreground">{t('perYear')}</span>}
         </p>
         <Link href="/property-details" className={cn(buttonVariants({ variant: 'default' }))}>

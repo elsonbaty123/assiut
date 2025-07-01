@@ -38,7 +38,7 @@ export function SignUpForm() {
     email: z.string().email({
       message: t('validationEmail'),
     }),
-    phoneNumber: z.string().regex(/^05\d{8}$/, {
+    phoneNumber: z.string().regex(/^01[0125]\d{8}$/, {
       message: t('validationPhoneFormat'),
     }),
     password: z.string()

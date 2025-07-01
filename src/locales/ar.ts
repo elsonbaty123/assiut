@@ -1,7 +1,7 @@
 export const ar = {
   // General
   "Masaakin": "مساكن",
-  "sar": "ريال",
+  "egp": "جنيه مصري",
   "sqm": "م²",
   "perYear": "/سنوي",
 
@@ -41,8 +41,8 @@ export const ar = {
   "furnished": "مفروش",
   "land": "أرض",
   "region": "المنطقة",
-  "regionPlaceholder": "مثال: الرياض, جدة...",
-  "price": "السعر (ريال)",
+  "regionPlaceholder": "مثال: القاهرة، الجيزة...",
+  "price": "السعر (جنيه)",
   "maxPrice": "أقصى سعر",
   "area": "المساحة (م²)",
   "minArea": "أدنى مساحة",
@@ -93,7 +93,7 @@ export const ar = {
   "fullName": "الاسم الكامل",
   "fullNamePlaceholder": "الاسم الكامل",
   "phoneNumber": "رقم الهاتف",
-  "phoneNumberPlaceholder": "0512345678",
+  "phoneNumberPlaceholder": "01xxxxxxxxx",
   "role": "أنا",
   "selectRole": "اختر دورك",
   "client": "عميل",
@@ -106,7 +106,7 @@ export const ar = {
   "signupFailedTitle": "فشل إنشاء الحساب",
   "validationFullNameMin": "الاسم الكامل يجب أن يكون حرفين على الأقل.",
   "validationRoleRequired": "الرجاء اختيار دور.",
-  "validationPhoneFormat": "الرجاء إدخال رقم هاتف سعودي صالح (مثال: 0512345678).",
+  "validationPhoneFormat": "الرجاء إدخال رقم هاتف مصري صالح (مثال: 01xxxxxxxxx).",
   "validationPhoneExists": "رقم الهاتف هذا مسجل بالفعل.",
   "validationEmailExists": "هذا البريد الإلكتروني مسجل بالفعل.",
 
@@ -153,8 +153,8 @@ export const ar = {
   "floorPlaceholder": "مثال: 5",
   "aptAreaPlaceholder": "مثال: 150",
   "landAreaPlaceholder": "مثال: 600",
-  "regionPlaceholderAdd": "مثال: حي الياسمين، الرياض",
-  "pricePlaceholder": "مثال: 1,200,000",
+  "regionPlaceholderAdd": "مثال: الزمالك، القاهرة",
+  "pricePlaceholder": "مثال: 3,500,000",
   "validationAdTitleMin": "عنوان الإعلان يجب أن يكون 5 أحرف على الأقل.",
   "validationRegionMin": "الرجاء إدخال منطقة صالحة.",
   "validationPricePositive": "الرجاء إدخال سعر صالح.",

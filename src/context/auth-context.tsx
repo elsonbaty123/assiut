@@ -35,10 +35,10 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const initialUsers: User[] = [
-    { id: "user-1", fullName: "Broker User", email: "broker@example.com", phoneNumber: "0512345678", password: "password123", role: "broker", status: "active" },
-    { id: "user-2", fullName: "Owner User", email: "owner@example.com", phoneNumber: "0587654321", password: "password123", role: "owner", status: "active" },
-    { id: "user-3", fullName: "Client User", email: "client@example.com", phoneNumber: "0555555555", password: "password123", role: "client", status: "active" },
-    { id: "user-4", fullName: "Admin User", email: "admin@example.com", phoneNumber: "0500000000", password: "password123", role: "admin", status: "active" },
+    { id: "user-1", fullName: "Broker User", email: "broker@example.com", phoneNumber: "01012345678", password: "password123", role: "broker", status: "active" },
+    { id: "user-2", fullName: "Owner User", email: "owner@example.com", phoneNumber: "01187654321", password: "password123", role: "owner", status: "active" },
+    { id: "user-3", fullName: "Client User", email: "client@example.com", phoneNumber: "01255555555", password: "password123", role: "client", status: "active" },
+    { id: "user-4", fullName: "Admin User", email: "admin@example.com", phoneNumber: "01500000000", password: "password123", role: "admin", status: "active" },
 ];
 
 

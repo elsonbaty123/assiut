@@ -50,7 +50,7 @@ export function PropertyTable() {
             </TableCell>
             <TableCell className="font-medium">{language === 'ar' ? property.title : (property.title_en || property.title)}</TableCell>
             <TableCell>{t(property.type)}</TableCell>
-            <TableCell>{property.price.toLocaleString(language === 'ar' ? "ar-SA" : "en-US")} {t('sar')}</TableCell>
+            <TableCell>{property.price.toLocaleString(language === 'ar' ? "ar-EG" : "en-US")} {t('egp')}</TableCell>
             <TableCell className="text-right">
               <AlertDialog>
                 <AlertDialogTrigger asChild>

@@ -1,7 +1,7 @@
 export const en = {
   // General
   "Masaakin": "Masaakin",
-  "sar": "SAR",
+  "egp": "EGP",
   "sqm": "m²",
   "perYear": "/year",
 
@@ -41,8 +41,8 @@ export const en = {
   "furnished": "Furnished",
   "land": "Land",
   "region": "Region",
-  "regionPlaceholder": "e.g., Riyadh, Jeddah...",
-  "price": "Price (SAR)",
+  "regionPlaceholder": "e.g., Cairo, Giza...",
+  "price": "Price (EGP)",
   "maxPrice": "Max price",
   "area": "Area (m²)",
   "minArea": "Min area",
@@ -93,7 +93,7 @@ export const en = {
   "fullName": "Full Name",
   "fullNamePlaceholder": "Full Name",
   "phoneNumber": "Phone Number",
-  "phoneNumberPlaceholder": "0512345678",
+  "phoneNumberPlaceholder": "01xxxxxxxxx",
   "role": "I am a",
   "selectRole": "Select your role",
   "client": "Client",
@@ -106,7 +106,7 @@ export const en = {
   "signupFailedTitle": "Account Creation Failed",
   "validationFullNameMin": "Full name must be at least 2 characters.",
   "validationRoleRequired": "Please select a role.",
-  "validationPhoneFormat": "Please enter a valid Saudi phone number (e.g., 0512345678).",
+  "validationPhoneFormat": "Please enter a valid Egyptian phone number (e.g., 01xxxxxxxxx).",
   "validationPhoneExists": "This phone number is already registered.",
   "validationEmailExists": "This email is already registered.",
 
@@ -153,8 +153,8 @@ export const en = {
   "floorPlaceholder": "e.g., 5",
   "aptAreaPlaceholder": "e.g., 150",
   "landAreaPlaceholder": "e.g., 600",
-  "regionPlaceholderAdd": "e.g., Al-Yasmin, Riyadh",
-  "pricePlaceholder": "e.g., 1,200,000",
+  "regionPlaceholderAdd": "e.g., Zamalek, Cairo",
+  "pricePlaceholder": "e.g., 3,500,000",
   "validationAdTitleMin": "Ad title must be at least 5 characters.",
   "validationRegionMin": "Please enter a valid region.",
   "validationPricePositive": "Please enter a valid price.",
