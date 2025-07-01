@@ -11,9 +11,10 @@ interface User {
   role: "client" | "broker" | "owner" | "admin";
   password?: string;
   status: "active" | "banned";
+  avatar: string;
 }
 
-type SignupData = Omit<User, "id" | "status">;
+type SignupData = Omit<User, "id" | "status" | "avatar">;
 
 interface Credentials {
     email: string;
@@ -26,7 +27,7 @@ interface AuthContextType {
   login: (credentials: Credentials) => Promise<boolean>;
   logout: () => void;
   signup: (userData: SignupData) => Promise<{ success: boolean; messageKey?: string }>;
-  updateUser: (userData: Partial<Pick<User, 'fullName'>>) => Promise<boolean>;
+  updateUser: (userData: Partial<Pick<User, 'fullName' | 'avatar'>>) => Promise<boolean>;
   deleteUser: (userId: string) => Promise<boolean>;
   toggleUserStatus: (userId: string) => Promise<boolean>;
   changePassword: (passwords: { currentPassword: string; newPassword: string }) => Promise<{ success: boolean; message: string }>;
@@ -34,11 +35,21 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const getDefaultAvatar = (role: User['role']): string => {
+    switch (role) {
+        case 'admin': return 'https://placehold.co/128x128/600474/FFFFFF.png?text=A';
+        case 'owner': return 'https://placehold.co/128x128/D4AF37/000000.png?text=O';
+        case 'broker': return 'https://placehold.co/128x128/C0C0C0/000000.png?text=B';
+        case 'client': return 'https://placehold.co/128x128/A9A9A9/FFFFFF.png?text=C';
+        default: return 'https://placehold.co/128x128.png';
+    }
+}
+
 const initialUsers: User[] = [
-    { id: "user-1", fullName: "Broker User", email: "broker@example.com", phoneNumber: "01012345678", password: "password123", role: "broker", status: "active" },
-    { id: "user-2", fullName: "Owner User", email: "owner@example.com", phoneNumber: "01187654321", password: "password123", role: "owner", status: "active" },
-    { id: "user-3", fullName: "Client User", email: "client@example.com", phoneNumber: "01255555555", password: "password123", role: "client", status: "active" },
-    { id: "user-4", fullName: "Admin User", email: "admin@example.com", phoneNumber: "01500000000", password: "password123", role: "admin", status: "active" },
+    { id: "user-1", fullName: "Broker User", email: "broker@example.com", phoneNumber: "01012345678", password: "password123", role: "broker", status: "active", avatar: getDefaultAvatar('broker') },
+    { id: "user-2", fullName: "Owner User", email: "owner@example.com", phoneNumber: "01187654321", password: "password123", role: "owner", status: "active", avatar: getDefaultAvatar('owner') },
+    { id: "user-3", fullName: "Client User", email: "client@example.com", phoneNumber: "01255555555", password: "password123", role: "client", status: "active", avatar: getDefaultAvatar('client') },
+    { id: "user-4", fullName: "Admin User", email: "admin@example.com", phoneNumber: "01500000000", password: "password123", role: "admin", status: "active", avatar: getDefaultAvatar('admin') },
 ];
 
 
@@ -83,7 +94,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const newUser: User = {
         ...userData,
         id: `user-${Date.now()}`,
-        status: 'active'
+        status: 'active',
+        avatar: getDefaultAvatar(userData.role),
     };
     
     setMockUsers(prev => [...prev, newUser]);
@@ -94,7 +106,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { success: true };
   };
 
-  const updateUser = async (userData: Partial<Pick<User, 'fullName'>>): Promise<boolean> => {
+  const updateUser = async (userData: Partial<Pick<User, 'fullName' | 'avatar'>>): Promise<boolean> => {
     if (!user) return false;
 
     // Update frontend state

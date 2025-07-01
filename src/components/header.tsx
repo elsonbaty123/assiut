@@ -56,7 +56,7 @@ export function Header() {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src="https://placehold.co/32x32.png"
+                        src={user.avatar}
                         alt={user.fullName}
                         data-ai-hint="user avatar"
                       />

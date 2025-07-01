@@ -136,6 +136,8 @@ export const ar = {
   "passwordValidationUppercase": "حرف كبير واحد على الأقل",
   "passwordValidationDigit": "رقم واحد على الأقل",
   "passwordValidationSpecial": "رمز خاص واحد على الأقل",
+  "uploadPicture": "رفع صورة",
+  "restoreDefault": "استعادة الافتراضي",
 
   // Add Property Page
   "addPropertyTitle": "إضافة عقار جديد",

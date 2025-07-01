@@ -136,6 +136,8 @@ export const en = {
   "passwordValidationUppercase": "At least one uppercase letter",
   "passwordValidationDigit": "At least one number",
   "passwordValidationSpecial": "At least one special character",
+  "uploadPicture": "Upload Picture",
+  "restoreDefault": "Restore Default",
 
   // Add Property Page
   "addPropertyTitle": "Add New Property",
