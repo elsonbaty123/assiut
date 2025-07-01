@@ -28,6 +28,9 @@ export const en = {
   "heroSubtitle": "An integrated platform that brings together owners, brokers, and clients. Start your search now.",
   "Featured Properties": "Featured Properties",
   "noResultsFound": "No search results found.",
+  "Search Properties": "Search Properties",
+  "Filter Properties": "Filter Properties",
+  "Filter Properties Description": "Use the filters below to find the property you're looking for.",
 
   // Search Form
   "offerType": "Offer Type",

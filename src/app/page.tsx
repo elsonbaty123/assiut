@@ -7,11 +7,15 @@ import type { Property } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { useTranslation } from "@/hooks/use-translation";
 import { useProperties } from "@/context/property-context";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Search } from "lucide-react";
 
 export default function Home() {
   const { t } = useTranslation();
   const { properties: featuredProperties } = useProperties();
   const [displayedProperties, setDisplayedProperties] = useState<Property[]>(featuredProperties);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     setDisplayedProperties(featuredProperties);
@@ -54,10 +58,15 @@ export default function Home() {
     setDisplayedProperties(results);
   }, [featuredProperties]);
 
+  const handleSearchAndClose = useCallback((filters: SearchFilters) => {
+    handleSearch(filters);
+    setIsSearchOpen(false);
+  }, [handleSearch]);
+
 
   return (
     <>
-      <section className="relative bg-primary/10 pt-16 md:pt-24 lg:pt-32">
+      <section className="relative bg-primary/10 pt-16 md:pt-24 lg:pt-32 pb-16">
         <div className="container mx-auto px-4 text-center">
             <Badge variant="secondary" className="mb-4 text-lg">{t('Masaakin')}</Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary-foreground/90">
@@ -66,9 +75,25 @@ export default function Home() {
             <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-primary-foreground/70">
               {t('heroSubtitle')}
             </p>
-        </div>
-        <div className="relative container mx-auto px-4 mt-8 md:mt-12">
-           <SearchForm onSearch={handleSearch} />
+            <div className="mt-8 md:mt-12 flex justify-center">
+                <Dialog open={isSearchOpen} onOpenChange={setIsSearchOpen}>
+                    <DialogTrigger asChild>
+                        <Button size="lg" className="rounded-full px-8 py-6 text-lg shadow-lg">
+                            <Search className="mr-2 h-5 w-5 rtl:mr-0 rtl:ml-2" />
+                            {t('Search Properties')}
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-3xl">
+                        <DialogHeader>
+                            <DialogTitle>{t('Filter Properties')}</DialogTitle>
+                            <DialogDescription>
+                              {t('Filter Properties Description')}
+                            </DialogDescription>
+                        </DialogHeader>
+                        <SearchForm onSearch={handleSearchAndClose} />
+                    </DialogContent>
+                </Dialog>
+            </div>
         </div>
          <div
           className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-background to-transparent"

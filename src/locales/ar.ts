@@ -28,6 +28,9 @@ export const ar = {
   "heroSubtitle": "منصة متكاملة تجمع الملاك والسماسرة والعملاء. ابدأ البحث الآن.",
   "Featured Properties": "عقارات مميزة",
   "noResultsFound": "لم يتم العثور على نتائج بحث.",
+  "Search Properties": "ابحث عن عقارات",
+  "Filter Properties": "تصفية العقارات",
+  "Filter Properties Description": "استخدم الفلاتر أدناه للعثور على العقار الذي تبحث عنه.",
 
   // Search Form
   "offerType": "نوع العرض",
