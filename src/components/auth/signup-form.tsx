@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -27,11 +26,12 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/hooks/use-translation";
+import { useAuth } from "@/context/auth-context";
 
 export function SignUpForm() {
   const { t, language } = useTranslation();
   const { toast } = useToast();
-  const router = useRouter();
+  const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = z.object({
@@ -62,7 +62,11 @@ export function SignUpForm() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
     
-    console.log("Account created with:", values);
+    login({
+        fullName: values.fullName,
+        email: values.email,
+        role: values.role
+    });
     
     setIsLoading(false);
     
@@ -70,10 +74,6 @@ export function SignUpForm() {
       title: t('signupSuccessTitle'),
       description: t('signupSuccessDescription'),
     });
-
-    setTimeout(() => {
-        router.push("/login");
-    }, 2000);
   }
 
   return (

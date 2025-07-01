@@ -95,7 +95,7 @@ export const ar = {
   "createAccountButton": "إنشاء حساب",
   "haveAccount": "لديك حساب بالفعل؟",
   "signupSuccessTitle": "تم إنشاء الحساب بنجاح!",
-  "signupSuccessDescription": "سيتم توجيهك إلى صفحة تسجيل الدخول.",
+  "signupSuccessDescription": "تم تسجيل دخولك الآن وسيتم توجيهك.",
   "validationFullNameMin": "الاسم الكامل يجب أن يكون حرفين على الأقل.",
   "validationRoleRequired": "الرجاء اختيار دور.",
 

@@ -95,7 +95,7 @@ export const en = {
   "createAccountButton": "Create Account",
   "haveAccount": "Already have an account?",
   "signupSuccessTitle": "Account created successfully!",
-  "signupSuccessDescription": "You will be redirected to the login page.",
+  "signupSuccessDescription": "You are now logged in and will be redirected.",
   "validationFullNameMin": "Full name must be at least 2 characters.",
   "validationRoleRequired": "Please select a role.",
 
