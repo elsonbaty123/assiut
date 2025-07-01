@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, User, Briefcase, KeyRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,21 +17,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useTranslation } from "@/hooks/use-translation";
 import { useAuth } from "@/context/auth-context";
 import { PasswordInput } from "@/components/ui/password-input";
 import { PasswordStrength } from "@/components/password-strength";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 
 export function SignUpForm() {
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { signup } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -133,20 +128,46 @@ export function SignUpForm() {
           control={form.control}
           name="role"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="space-y-3">
               <FormLabel>{t('role')}</FormLabel>
-              <Select dir={language === 'ar' ? 'rtl' : 'ltr'} onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder={t('selectRole')} />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="client">{t('client')}</SelectItem>
-                  <SelectItem value="broker">{t('broker')}</SelectItem>
-                  <SelectItem value="owner">{t('owner')}</SelectItem>
-                </SelectContent>
-              </Select>
+              <FormControl>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                >
+                  <div>
+                    <RadioGroupItem value="client" id="role-client" className="peer sr-only" />
+                    <Label
+                      htmlFor="role-client"
+                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer"
+                    >
+                      <User className="mb-3 h-6 w-6" />
+                      {t('client')}
+                    </Label>
+                  </div>
+                  <div>
+                    <RadioGroupItem value="broker" id="role-broker" className="peer sr-only" />
+                    <Label
+                      htmlFor="role-broker"
+                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer"
+                    >
+                      <Briefcase className="mb-3 h-6 w-6" />
+                      {t('broker')}
+                    </Label>
+                  </div>
+                  <div>
+                    <RadioGroupItem value="owner" id="role-owner" className="peer sr-only" />
+                    <Label
+                      htmlFor="role-owner"
+                      className="flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-4 font-normal hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary cursor-pointer"
+                    >
+                      <KeyRound className="mb-3 h-6 w-6" />
+                      {t('owner')}
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
