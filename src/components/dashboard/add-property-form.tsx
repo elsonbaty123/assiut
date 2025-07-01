@@ -50,8 +50,16 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
+                <Label htmlFor="bedrooms">غرف النوم</Label>
+                <Input id="bedrooms" type="number" placeholder="مثال: 3" />
+            </div>
+            <div className="space-y-2">
+                <Label htmlFor="bathrooms">الحمامات</Label>
+                <Input id="bathrooms" type="number" placeholder="مثال: 2" />
+            </div>
+            <div className="space-y-2">
                 <Label htmlFor="floor">الدور</Label>
-                <Input id="floor" type="number" placeholder="مثال: 3" />
+                <Input id="floor" type="number" placeholder="مثال: 5" />
             </div>
             <div className="space-y-2">
                 <Label htmlFor="area-apt">المساحة (م²)</Label>
@@ -97,6 +105,11 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
             <Input id="price" type="number" placeholder="مثال: 1,200,000" />
         </div>
       </div>
+      
+       <div className="space-y-2">
+          <Label htmlFor="title">عنوان الإعلان</Label>
+          <Input id="title" placeholder="مثال: شقة فاخرة للبيع..." />
+        </div>
 
        <div className="space-y-2">
           <Label htmlFor="description">

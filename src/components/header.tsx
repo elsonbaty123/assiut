@@ -33,12 +33,14 @@ export function Header() {
             >
               الرئيسية
             </Link>
-            <Link
-              href="/dashboard/add-property"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              أضف عقار
-            </Link>
+            {user && (user.role === "broker" || user.role === "owner") && (
+               <Link
+                href="/dashboard/add-property"
+                className="transition-colors hover:text-foreground/80 text-foreground"
+              >
+                أضف عقار
+              </Link>
+            )}
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">

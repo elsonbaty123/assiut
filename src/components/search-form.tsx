@@ -11,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export function SearchForm() {
   return (
@@ -18,8 +20,26 @@ export function SearchForm() {
       <CardContent className="p-6">
         <form
           onSubmit={(e) => e.preventDefault()}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end"
         >
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">نوع العرض</Label>
+            <RadioGroup defaultValue="all" className="flex gap-4 pt-2">
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <RadioGroupItem value="all" id="all" />
+                <Label htmlFor="all" className="font-normal">الكل</Label>
+              </div>
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <RadioGroupItem value="sale" id="sale" />
+                <Label htmlFor="sale" className="font-normal">بيع</Label>
+              </div>
+              <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <RadioGroupItem value="rent" id="rent" />
+                <Label htmlFor="rent" className="font-normal">إيجار</Label>
+              </div>
+            </RadioGroup>
+          </div>
+          
           <div className="space-y-2">
             <label className="text-sm font-medium">نوع الوحدة</label>
             <Select dir="rtl">

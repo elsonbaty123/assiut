@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { AreaChart, Bath, BedDouble, Building, CheckCircle, DollarSign, Droplets, Lightbulb, MapPin, Wind } from "lucide-react";
+import { AreaChart, Bath, BedDouble, Building, Droplets, Lightbulb, MapPin, Wind } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const property = {
   id: "1",
   title: "شقة فاخرة للبيع في قلب الرياض",
-  type: "sale",
+  type: "sale" as const,
   unitType: ["residential", "furnished"],
   price: 1200000,
   location: "حي العليا، الرياض",
@@ -26,7 +26,7 @@ const property = {
   bedrooms: 3,
   bathrooms: 2,
   floor: 5,
-  utilities: ["gas", "electricity", "water"],
+  utilities: ["gas", "electricity", "water"] as ("gas" | "electricity" | "water")[],
   description: "شقة عصرية بتشطيبات فاخرة في برج سكني حديث. تتميز بإطلالات بانورامية على المدينة وموقع استراتيجي بالقرب من جميع الخدمات والمراكز التجارية. الشقة مؤثثة بالكامل بأثاث راقٍ وجاهزة للسكن الفوري. مثالية للعائلات التي تبحث عن نمط حياة مريح وفاخر.",
   agent: { name: "شركة الأفق للعقارات", avatar: "https://placehold.co/100x100.png" },
   dataAiHint: "luxury apartment interior"
@@ -41,8 +41,19 @@ const utilityIcons = {
 export default function PropertyDetailsPage() {
   return (
     <div className="container mx-auto py-12 px-4">
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">{property.title}</h1>
+            <div className="flex items-center gap-2 text-muted-foreground mb-4">
+                <MapPin className="w-5 h-5"/>
+                <span>{property.location}</span>
+            </div>
+            
+            <div className="flex items-baseline gap-4 mb-6">
+                 <span className="text-4xl font-bold text-primary">{property.price.toLocaleString('ar-SA')} ريال</span>
+                {property.type === 'rent' && <span className="text-xl text-muted-foreground">/سنوي</span>}
+            </div>
+
             <Card className="overflow-hidden mb-8">
               <CardContent className="p-0">
                 <Carousel className="w-full">
@@ -66,12 +77,6 @@ export default function PropertyDetailsPage() {
               </CardContent>
             </Card>
 
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{property.title}</h1>
-            <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                <MapPin className="w-5 h-5"/>
-                <span>{property.location}</span>
-            </div>
-
             <div className="flex flex-wrap gap-2 mb-6">
                 <Badge variant="secondary">{property.type === 'sale' ? 'للبيع' : 'للإيجار'}</Badge>
                 {property.unitType.map(type => (
@@ -87,28 +92,32 @@ export default function PropertyDetailsPage() {
             
             <h2 className="text-2xl font-bold mb-4">المواصفات</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8">
-                <Card>
-                    <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
-                         <DollarSign className="w-8 h-8 text-primary"/>
-                         <span className="font-bold text-lg">{property.price.toLocaleString('ar-SA')} ريال</span>
-                    </CardContent>
-                </Card>
                  <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <AreaChart className="w-8 h-8 text-primary"/>
-                         <span className="font-bold">{property.area} م²</span>
+                         <span className="font-bold text-lg">{property.area} م²</span>
+                         <span className="text-sm text-muted-foreground">المساحة</span>
                     </CardContent>
                 </Card>
                  <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <BedDouble className="w-8 h-8 text-primary"/>
-                         <span className="font-bold">{property.bedrooms} غرف</span>
+                         <span className="font-bold text-lg">{property.bedrooms}</span>
+                         <span className="text-sm text-muted-foreground">غرف نوم</span>
                     </CardContent>
                 </Card>
                  <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <Bath className="w-8 h-8 text-primary"/>
-                         <span className="font-bold">{property.bathrooms} حمامات</span>
+                         <span className="font-bold text-lg">{property.bathrooms}</span>
+                         <span className="text-sm text-muted-foreground">حمامات</span>
+                    </CardContent>
+                </Card>
+                <Card>
+                    <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
+                         <Building className="w-8 h-8 text-primary"/>
+                         <span className="font-bold text-lg">{property.floor}</span>
+                         <span className="text-sm text-muted-foreground">الدور</span>
                     </CardContent>
                 </Card>
             </div>
@@ -124,9 +133,9 @@ export default function PropertyDetailsPage() {
 
             <h2 className="text-2xl font-bold mb-4">المرافق</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {property.utilities.map(util =>(
+                {property.utilities && property.utilities.map(util =>(
                     <div key={util} className="flex items-center gap-2 p-3 bg-secondary/30 rounded-lg">
-                        {utilityIcons[util as keyof typeof utilityIcons]}
+                        {utilityIcons[util]}
                         <span className="font-medium">
                              {util === 'gas' && 'غاز'}
                              {util === 'electricity' && 'كهرباء'}
@@ -139,7 +148,7 @@ export default function PropertyDetailsPage() {
         </div>
 
         <div className="lg:col-span-1">
-            <Card className="sticky top-20">
+            <Card className="sticky top-24">
                 <CardHeader className="text-center">
                     <div className="flex justify-center mb-4">
                         <Avatar className="w-24 h-24 border-4 border-primary">

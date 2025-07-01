@@ -15,6 +15,8 @@ const featuredProperties: Property[] = [
     image: "https://placehold.co/600x400.png",
     bedrooms: 3,
     bathrooms: 2,
+    floor: 5,
+    utilities: ["gas", "electricity", "water"],
     agent: { name: "شركة الأفق للعقارات", avatar: "https://placehold.co/100x100.png" },
     dataAiHint: "modern apartment exterior"
   },
@@ -29,6 +31,8 @@ const featuredProperties: Property[] = [
     image: "https://placehold.co/600x400.png",
     bedrooms: 0,
     bathrooms: 1,
+    floor: 10,
+    utilities: ["electricity", "water"],
     agent: { name: "عبدالله السالم", avatar: "https://placehold.co/100x100.png" },
     dataAiHint: "office building"
   },
@@ -69,6 +73,8 @@ const featuredProperties: Property[] = [
     image: "https://placehold.co/600x400.png",
     bedrooms: 2,
     bathrooms: 2,
+    floor: 12,
+    utilities: ["water", "electricity"],
     agent: { name: "شركة الساحل للعقارات", avatar: "https://placehold.co/100x100.png" },
     dataAiHint: "apartment sea view"
   },
