@@ -33,6 +33,7 @@ export function AccountSettingsForm() {
     email: z.string().email({
       message: t('validationEmail'),
     }),
+    phoneNumber: z.string(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,6 +41,7 @@ export function AccountSettingsForm() {
     defaultValues: {
       fullName: "",
       email: "",
+      phoneNumber: "",
     },
   });
 
@@ -48,6 +50,7 @@ export function AccountSettingsForm() {
       form.reset({
         fullName: user.fullName,
         email: user.email,
+        phoneNumber: user.phoneNumber,
       });
     }
   }, [user, form]);
@@ -109,6 +112,24 @@ export function AccountSettingsForm() {
                 <Input
                   type="email"
                   placeholder={t('emailPlaceholder')}
+                  {...field}
+                  disabled
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phoneNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('phoneNumber')}</FormLabel>
+              <FormControl>
+                <Input
+                  type="tel"
+                  placeholder={t('phoneNumberPlaceholder')}
                   {...field}
                   disabled
                 />

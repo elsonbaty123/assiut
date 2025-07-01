@@ -52,6 +52,7 @@ export function UserTable() {
         <TableRow>
           <TableHead>{t('fullName')}</TableHead>
           <TableHead>{t('email')}</TableHead>
+          <TableHead>{t('phoneNumber')}</TableHead>
           <TableHead>{t('role')}</TableHead>
           <TableHead>{t('status')}</TableHead>
           <TableHead className="text-right">{t('actions')}</TableHead>
@@ -62,6 +63,7 @@ export function UserTable() {
           <TableRow key={user.id}>
             <TableCell>{user.fullName}</TableCell>
             <TableCell>{user.email}</TableCell>
+            <TableCell>{user.phoneNumber}</TableCell>
             <TableCell>{roleTranslations[user.role]}</TableCell>
             <TableCell>
               <Badge variant={user.status === 'active' ? 'secondary' : 'destructive'}>

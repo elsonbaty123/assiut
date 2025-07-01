@@ -7,6 +7,7 @@ interface User {
   id: string;
   fullName: string;
   email: string;
+  phoneNumber: string;
   role: "client" | "broker" | "owner" | "admin";
   password?: string;
   status: "active" | "banned";
@@ -24,7 +25,7 @@ interface AuthContextType {
   users: Omit<User, 'password'>[];
   login: (credentials: Credentials) => Promise<boolean>;
   logout: () => void;
-  signup: (userData: SignupData) => Promise<void>;
+  signup: (userData: SignupData) => Promise<{ success: boolean; messageKey?: string }>;
   updateUser: (userData: Partial<Pick<User, 'fullName'>>) => Promise<boolean>;
   deleteUser: (userId: string) => Promise<boolean>;
   toggleUserStatus: (userId: string) => Promise<boolean>;
@@ -34,10 +35,10 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const initialUsers: User[] = [
-    { id: "user-1", fullName: "Broker User", email: "broker@example.com", password: "password123", role: "broker", status: "active" },
-    { id: "user-2", fullName: "Owner User", email: "owner@example.com", password: "password123", role: "owner", status: "active" },
-    { id: "user-3", fullName: "Client User", email: "client@example.com", password: "password123", role: "client", status: "active" },
-    { id: "user-4", fullName: "Admin User", email: "admin@example.com", password: "password123", role: "admin", status: "active" },
+    { id: "user-1", fullName: "Broker User", email: "broker@example.com", phoneNumber: "0512345678", password: "password123", role: "broker", status: "active" },
+    { id: "user-2", fullName: "Owner User", email: "owner@example.com", phoneNumber: "0587654321", password: "password123", role: "owner", status: "active" },
+    { id: "user-3", fullName: "Client User", email: "client@example.com", phoneNumber: "0555555555", password: "password123", role: "client", status: "active" },
+    { id: "user-4", fullName: "Admin User", email: "admin@example.com", phoneNumber: "0500000000", password: "password123", role: "admin", status: "active" },
 ];
 
 
@@ -69,27 +70,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return false;
   };
 
-  const signup = async (userData: SignupData) => {
-    const userExists = mockUsers.some(u => u.email === userData.email);
+  const signup = async (userData: SignupData): Promise<{ success: boolean; messageKey?: string }> => {
+    const emailExists = mockUsers.some(u => u.email === userData.email);
+    if (emailExists) {
+        return { success: false, messageKey: 'validationEmailExists' };
+    }
+    const phoneExists = mockUsers.some(u => u.phoneNumber === userData.phoneNumber);
+    if (phoneExists) {
+        return { success: false, messageKey: 'validationPhoneExists' };
+    }
+    
     const newUser: User = {
         ...userData,
         id: `user-${Date.now()}`,
         status: 'active'
     };
-
-    if(userExists) {
-        // In a real app, you'd return an error.
-        // For this mock, we'll just log and overwrite.
-        console.warn("User with this email already exists in mock DB.");
-        const otherUsers = mockUsers.filter(u => u.email !== userData.email);
-        setMockUsers([...otherUsers, newUser]);
-    } else {
-        setMockUsers(prev => [...prev, newUser]);
-    }
+    
+    setMockUsers(prev => [...prev, newUser]);
     
     const { password, ...userToSet } = newUser;
     setUser(userToSet);
     router.push("/");
+    return { success: true };
   };
 
   const updateUser = async (userData: Partial<Pick<User, 'fullName'>>): Promise<boolean> => {
@@ -97,7 +99,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     // Update frontend state
     const updatedUser = { ...user, ...userData };
-    setUser(updatedUser);
+    setUser(updatedUser as Omit<User, 'password'>);
 
     // Update mock database
     setMockUsers(currentUsers =>

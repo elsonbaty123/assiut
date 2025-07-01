@@ -38,6 +38,9 @@ export function SignUpForm() {
     email: z.string().email({
       message: t('validationEmail'),
     }),
+    phoneNumber: z.string().regex(/^05\d{8}$/, {
+      message: t('validationPhoneFormat'),
+    }),
     password: z.string()
       .min(8, { message: t('passwordValidationLength') })
       .regex(/[a-z]/, { message: t('passwordValidationLowercase') })
@@ -54,27 +57,37 @@ export function SignUpForm() {
     defaultValues: {
       fullName: "",
       email: "",
+      phoneNumber: "",
       password: "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     
-    await signup({
+    const result = await signup({
         fullName: values.fullName,
         email: values.email,
+        phoneNumber: values.phoneNumber,
         role: values.role,
         password: values.password
     });
     
     setIsLoading(false);
     
-    toast({
-      title: t('signupSuccessTitle'),
-      description: t('signupSuccessDescription'),
-    });
+    if (result.success) {
+      toast({
+        title: t('signupSuccessTitle'),
+        description: t('signupSuccessDescription'),
+      });
+    } else if (result.messageKey) {
+      toast({
+        variant: "destructive",
+        title: t('signupFailedTitle'),
+        description: t(result.messageKey),
+      });
+    }
   }
 
   return (
@@ -103,6 +116,23 @@ export function SignUpForm() {
                 <Input
                   type="email"
                   placeholder={t('emailPlaceholder')}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="phoneNumber"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('phoneNumber')}</FormLabel>
+              <FormControl>
+                <Input
+                  type="tel"
+                  placeholder={t('phoneNumberPlaceholder')}
                   {...field}
                 />
               </FormControl>

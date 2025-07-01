@@ -92,6 +92,8 @@ export const ar = {
   "signupDescription": "أدخل معلوماتك أدناه لإنشاء حساب وتحديد دورك.",
   "fullName": "الاسم الكامل",
   "fullNamePlaceholder": "الاسم الكامل",
+  "phoneNumber": "رقم الهاتف",
+  "phoneNumberPlaceholder": "0512345678",
   "role": "أنا",
   "selectRole": "اختر دورك",
   "client": "عميل",
@@ -101,8 +103,12 @@ export const ar = {
   "haveAccount": "لديك حساب بالفعل؟",
   "signupSuccessTitle": "تم إنشاء الحساب بنجاح!",
   "signupSuccessDescription": "تم تسجيل دخولك الآن وسيتم توجيهك.",
+  "signupFailedTitle": "فشل إنشاء الحساب",
   "validationFullNameMin": "الاسم الكامل يجب أن يكون حرفين على الأقل.",
   "validationRoleRequired": "الرجاء اختيار دور.",
+  "validationPhoneFormat": "الرجاء إدخال رقم هاتف سعودي صالح (مثال: 0512345678).",
+  "validationPhoneExists": "رقم الهاتف هذا مسجل بالفعل.",
+  "validationEmailExists": "هذا البريد الإلكتروني مسجل بالفعل.",
 
   // Account Page
   "accountTitle": "إعدادات الحساب",

@@ -92,6 +92,8 @@ export const en = {
   "signupDescription": "Enter your information below to create an account and select your role.",
   "fullName": "Full Name",
   "fullNamePlaceholder": "Full Name",
+  "phoneNumber": "Phone Number",
+  "phoneNumberPlaceholder": "0512345678",
   "role": "I am a",
   "selectRole": "Select your role",
   "client": "Client",
@@ -101,8 +103,12 @@ export const en = {
   "haveAccount": "Already have an account?",
   "signupSuccessTitle": "Account created successfully!",
   "signupSuccessDescription": "You are now logged in and will be redirected.",
+  "signupFailedTitle": "Account Creation Failed",
   "validationFullNameMin": "Full name must be at least 2 characters.",
   "validationRoleRequired": "Please select a role.",
+  "validationPhoneFormat": "Please enter a valid Saudi phone number (e.g., 0512345678).",
+  "validationPhoneExists": "This phone number is already registered.",
+  "validationEmailExists": "This email is already registered.",
 
   // Account Page
   "accountTitle": "Account Settings",
