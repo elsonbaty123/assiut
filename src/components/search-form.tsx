@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -37,6 +37,16 @@ export function SearchForm({ onSearch }: SearchFormProps) {
   const [region, setRegion] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [minArea, setMinArea] = useState('');
+
+  useEffect(() => {
+    onSearch({
+        offerType,
+        unitType,
+        region,
+        maxPrice,
+        minArea,
+    })
+  }, [offerType, unitType, region, maxPrice, minArea, onSearch]);
 
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -82,6 +92,7 @@ export function SearchForm({ onSearch }: SearchFormProps) {
                 <SelectValue placeholder={t('selectUnitType')} />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="">{t('all')}</SelectItem>
                 <SelectItem value="residential">{t('residential')}</SelectItem>
                 <SelectItem value="administrative">{t('administrative')}</SelectItem>
                 <SelectItem value="furnished">{t('furnished')}</SelectItem>
