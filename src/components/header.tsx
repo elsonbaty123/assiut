@@ -89,6 +89,11 @@ export function Header() {
                           <Link href="/dashboard/add-property">{t('Add Property')}</Link>
                       </DropdownMenuItem>
                     )}
+                     {user.role !== 'admin' && (
+                        <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                          <Link href="/my-chats">{t('myChats')}</Link>
+                        </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
                       <Link href="/account">{t('Account Settings')}</Link>
                     </DropdownMenuItem>
