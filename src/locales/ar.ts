@@ -60,15 +60,11 @@ export const ar = {
   "water": "مياه",
 
   // Property Details Page
-  "contactName": "الاسم",
-  "contactNamePlaceholder": "اسمك الكامل",
-  "contactEmail": "البريد الإلكتروني",
-  "contactEmailPlaceholder": "بريدك الإلكتروني",
-  "contactPhone": "رقم الهاتف",
-  "contactPhonePlaceholder": "رقم هاتفك",
-  "contactMessage": "الرسالة",
-  "defaultMessage": "أنا مهتم بهذا العقار وأود المزيد من التفاصيل...",
-  "sendMessage": "إرسال استفسار",
+  "chatWithAgent": "تواصل مع الوكيل",
+  "startConversation": "أرسل رسالة لبدء المحادثة.",
+  "typeYourMessage": "اكتب رسالتك...",
+  "agentReply": "مرحباً! شكراً لاهتمامك بالعقار. أنا هنا لمساعدتك بأي أسئلة لديك.",
+  "sendMessage": "إرسال رسالة",
 
   // Login Page
   "loginTitle": "تسجيل الدخول",

@@ -2,16 +2,13 @@
 
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AreaChart, Bath, BedDouble, Building, Droplets, Lightbulb, MapPin, Wind } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTranslation } from "@/hooks/use-translation";
+import { ChatInterface } from "@/components/property/chat-interface";
 
 const property = {
   id: "1",
@@ -177,27 +174,10 @@ export default function PropertyDetailsPage() {
                         </Avatar>
                     </div>
                     <CardTitle>{property.agent.name}</CardTitle>
+                    <CardDescription>{t('chatWithAgent')}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <form className="space-y-4">
-                         <div className="space-y-2">
-                            <Label htmlFor="name">{t('contactName')}</Label>
-                            <Input id="name" placeholder={t('contactNamePlaceholder')} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="email">{t('contactEmail')}</Label>
-                            <Input id="email" type="email" placeholder={t('contactEmailPlaceholder')} />
-                        </div>
-                         <div className="space-y-2">
-                            <Label htmlFor="phone">{t('contactPhone')}</Label>
-                            <Input id="phone" type="tel" placeholder={t('contactPhonePlaceholder')} />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="message">{t('contactMessage')}</Label>
-                            <Textarea id="message" placeholder={t('defaultMessage')} defaultValue={t('defaultMessage')}/>
-                        </div>
-                        <Button type="submit" className="w-full">{t('sendMessage')}</Button>
-                    </form>
+                    <ChatInterface agent={property.agent} />
                 </CardContent>
             </Card>
         </div>

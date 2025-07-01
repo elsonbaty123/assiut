@@ -60,15 +60,11 @@ export const en = {
   "water": "Water",
 
   // Property Details Page
-  "contactName": "Name",
-  "contactNamePlaceholder": "Your full name",
-  "contactEmail": "Email",
-  "contactEmailPlaceholder": "Your email address",
-  "contactPhone": "Phone Number",
-  "contactPhonePlaceholder": "Your phone number",
-  "contactMessage": "Message",
-  "defaultMessage": "I am interested in this property and would like more details...",
-  "sendMessage": "Send Inquiry",
+  "chatWithAgent": "Chat with the Agent",
+  "startConversation": "Send a message to start the conversation.",
+  "typeYourMessage": "Type your message...",
+  "agentReply": "Hello! Thanks for your interest in the property. I'm here to help with any questions you have.",
+  "sendMessage": "Send Message",
   
   // Login Page
   "loginTitle": "Login",
