@@ -26,26 +26,28 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-
-const formSchema = z.object({
-  fullName: z.string().min(2, {
-    message: "الاسم الكامل يجب أن يكون حرفين على الأقل.",
-  }),
-  email: z.string().email({
-    message: "الرجاء إدخال بريد إلكتروني صالح.",
-  }),
-  password: z.string().min(8, {
-    message: "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
-  }),
-  role: z.enum(["client", "broker", "owner"], {
-    required_error: "الرجاء اختيار دور.",
-  }),
-});
+import { useTranslation } from "@/hooks/use-translation";
 
 export function SignUpForm() {
+  const { t, language } = useTranslation();
   const { toast } = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+
+  const formSchema = z.object({
+    fullName: z.string().min(2, {
+      message: t('validationFullNameMin'),
+    }),
+    email: z.string().email({
+      message: t('validationEmail'),
+    }),
+    password: z.string().min(8, {
+      message: t('validationPasswordMin'),
+    }),
+    role: z.enum(["client", "broker", "owner"], {
+      required_error: t('validationRoleRequired'),
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,20 +60,17 @@ export function SignUpForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Simulate API call for account creation
     await new Promise((resolve) => setTimeout(resolve, 1500));
     
-    // In a real app, you would handle success/error from the API
     console.log("Account created with:", values);
     
     setIsLoading(false);
     
     toast({
-      title: "تم إنشاء الحساب بنجاح!",
-      description: "سيتم توجيهك إلى صفحة تسجيل الدخول.",
+      title: t('signupSuccessTitle'),
+      description: t('signupSuccessDescription'),
     });
 
-    // Redirect to login page after a short delay to allow user to see the toast
     setTimeout(() => {
         router.push("/login");
     }, 2000);
@@ -85,9 +84,9 @@ export function SignUpForm() {
           name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الاسم الكامل</FormLabel>
+              <FormLabel>{t('fullName')}</FormLabel>
               <FormControl>
-                <Input placeholder="الاسم الكامل" {...field} />
+                <Input placeholder={t('fullNamePlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -98,11 +97,11 @@ export function SignUpForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>البريد الإلكتروني</FormLabel>
+              <FormLabel>{t('email')}</FormLabel>
               <FormControl>
                 <Input
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t('emailPlaceholder')}
                   {...field}
                 />
               </FormControl>
@@ -115,9 +114,9 @@ export function SignUpForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>كلمة المرور</FormLabel>
+              <FormLabel>{t('password')}</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="********" {...field} />
+                <Input type="password" placeholder={t('passwordPlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -128,17 +127,17 @@ export function SignUpForm() {
           name="role"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>أنا</FormLabel>
-              <Select dir="rtl" onValueChange={field.onChange} defaultValue={field.value}>
+              <FormLabel>{t('role')}</FormLabel>
+              <Select dir={language === 'ar' ? 'rtl' : 'ltr'} onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="اختر دورك" />
+                    <SelectValue placeholder={t('selectRole')} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="client">عميل</SelectItem>
-                  <SelectItem value="broker">سمسار</SelectItem>
-                  <SelectItem value="owner">مالك</SelectItem>
+                  <SelectItem value="client">{t('client')}</SelectItem>
+                  <SelectItem value="broker">{t('broker')}</SelectItem>
+                  <SelectItem value="owner">{t('owner')}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -147,12 +146,12 @@ export function SignUpForm() {
         />
         <Button type="submit" className="w-full" disabled={isLoading}>
            {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-          إنشاء حساب
+           {t('createAccountButton')}
         </Button>
         <div className="mt-4 text-center text-sm">
-          لديك حساب بالفعل؟{" "}
+          {t('haveAccount')}{" "}
           <Link href="/login" className="underline">
-            تسجيل الدخول
+            {t('Login')}
           </Link>
         </div>
       </form>

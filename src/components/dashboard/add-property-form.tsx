@@ -15,53 +15,55 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "@/hooks/use-translation";
 
 interface AddPropertyFormProps {
   type: "apartment" | "land";
 }
 
-const unitTypes = [
-  { id: "residential", label: "سكني" },
-  { id: "administrative", label: "إداري" },
-  { id: "furnished", label: "مفروش" },
-] as const;
-
-const utilityTypes = [
-    { id: "gas", label: "غاز" },
-    { id: "electricity", label: "كهرباء" },
-    { id: "water", label: "مياه" },
-] as const;
-
-const baseSchema = z.object({
-  title: z.string().min(5, { message: "عنوان الإعلان يجب أن يكون 5 أحرف على الأقل." }),
-  location: z.string().min(3, { message: "الرجاء إدخال منطقة صالحة." }),
-  price: z.coerce.number().positive({ message: "الرجاء إدخال سعر صالح." }),
-  description: z.string().min(10, { message: "الوصف يجب أن يكون 10 أحرف على الأقل." }),
-  images: z.any().optional(),
-  area: z.coerce.number().positive({ message: "الرجاء إدخال مساحة صالحة." }),
-});
-
-const apartmentSchema = baseSchema.extend({
-  type: z.enum(["rent", "sale"], { required_error: "الرجاء اختيار نوع العرض." }),
-  unitType: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "يجب عليك اختيار نوع وحدة واحد على الأقل.",
-  }),
-  bedrooms: z.coerce.number().int().min(0, { message: "عدد الغرف لا يمكن أن يكون سالبًا." }),
-  bathrooms: z.coerce.number().int().min(0, { message: "عدد الحمامات لا يمكن أن يكون سالبًا." }),
-  floor: z.coerce.number().int().min(0, { message: "رقم الدور لا يمكن أن يكون سالبًا." }),
-  utilities: z.array(z.string()).optional(),
-});
-
-const landSchema = baseSchema;
-
-const getFormSchema = (type: "apartment" | "land") => {
-    return type === 'apartment' ? apartmentSchema : landSchema;
-}
-
 export function AddPropertyForm({ type }: AddPropertyFormProps) {
+    const { t } = useTranslation();
     const { toast } = useToast();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+
+    const unitTypes = [
+      { id: "residential", label: t('residential') },
+      { id: "administrative", label: t('administrative') },
+      { id: "furnished", label: t('furnished') },
+    ] as const;
+
+    const utilityTypes = [
+        { id: "gas", label: t('gas') },
+        { id: "electricity", label: t('electricity') },
+        { id: "water", label: t('water') },
+    ] as const;
+    
+    const getFormSchema = (type: "apartment" | "land") => {
+      const baseSchema = z.object({
+        title: z.string().min(5, { message: t('validationAdTitleMin') }),
+        location: z.string().min(3, { message: t('validationRegionMin') }),
+        price: z.coerce.number().positive({ message: t('validationPricePositive') }),
+        description: z.string().min(10, { message: t('validationDescriptionMin') }),
+        images: z.any().optional(),
+        area: z.coerce.number().positive({ message: t('validationAreaPositive') }),
+      });
+
+      const apartmentSchema = baseSchema.extend({
+        type: z.enum(["rent", "sale"], { required_error: t('validationOfferTypeRequired') }),
+        unitType: z.array(z.string()).refine((value) => value.some((item) => item), {
+          message: t('validationUnitTypeRequired'),
+        }),
+        bedrooms: z.coerce.number().int().min(0, { message: t('validationBedroomsMin') }),
+        bathrooms: z.coerce.number().int().min(0, { message: t('validationBathroomsMin') }),
+        floor: z.coerce.number().int().min(0, { message: t('validationFloorMin') }),
+        utilities: z.array(z.string()).optional(),
+      });
+
+      const landSchema = baseSchema;
+
+      return type === 'apartment' ? apartmentSchema : landSchema;
+    }
     
     const formSchema = getFormSchema(type);
 
@@ -95,8 +97,8 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
 
         setIsLoading(false);
         toast({
-            title: "تمت إضافة العقار بنجاح!",
-            description: "سيتم توجيهك إلى الصفحة الرئيسية.",
+            title: t('addSuccessTitle'),
+            description: t('addSuccessDescription'),
         });
 
         setTimeout(() => {
@@ -114,7 +116,7 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
               name="type"
               render={({ field }) => (
                 <FormItem className="space-y-3">
-                  <FormLabel>نوع العرض</FormLabel>
+                  <FormLabel>{t('offerType')}</FormLabel>
                   <FormControl>
                     <RadioGroup
                       onValueChange={field.onChange}
@@ -125,13 +127,13 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
                         <FormControl>
                           <RadioGroupItem value="sale" id="sale" />
                         </FormControl>
-                        <Label htmlFor="sale" className="font-normal">بيع</Label>
+                        <Label htmlFor="sale" className="font-normal">{t('forSale')}</Label>
                       </FormItem>
                       <FormItem className="flex items-center space-x-2 rtl:space-x-reverse">
                         <FormControl>
                           <RadioGroupItem value="rent" id="rent" />
                         </FormControl>
-                        <Label htmlFor="rent" className="font-normal">إيجار</Label>
+                        <Label htmlFor="rent" className="font-normal">{t('forRent')}</Label>
                       </FormItem>
                     </RadioGroup>
                   </FormControl>
@@ -146,7 +148,7 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
               render={() => (
                 <FormItem>
                   <div className="mb-4">
-                    <FormLabel>نوع الوحدة</FormLabel>
+                    <FormLabel>{t('unitType')}</FormLabel>
                   </div>
                   <div className="flex flex-wrap gap-4">
                     {unitTypes.map((item) => (
@@ -186,10 +188,10 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
             />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-               <FormField control={form.control} name="bedrooms" render={({ field }) => (<FormItem><FormLabel>غرف النوم</FormLabel><FormControl><Input type="number" placeholder="مثال: 3" {...field} /></FormControl><FormMessage /></FormItem>)} />
-               <FormField control={form.control} name="bathrooms" render={({ field }) => (<FormItem><FormLabel>الحمامات</FormLabel><FormControl><Input type="number" placeholder="مثال: 2" {...field} /></FormControl><FormMessage /></FormItem>)} />
-               <FormField control={form.control} name="floor" render={({ field }) => (<FormItem><FormLabel>الدور</FormLabel><FormControl><Input type="number" placeholder="مثال: 5" {...field} /></FormControl><FormMessage /></FormItem>)} />
-               <FormField control={form.control} name="area" render={({ field }) => (<FormItem><FormLabel>المساحة (م²)</FormLabel><FormControl><Input id="area-apt" type="number" placeholder="مثال: 150" {...field} /></FormControl><FormMessage /></FormItem>)} />
+               <FormField control={form.control} name="bedrooms" render={({ field }) => (<FormItem><FormLabel>{t('bedrooms')}</FormLabel><FormControl><Input type="number" placeholder={t('bedroomsPlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
+               <FormField control={form.control} name="bathrooms" render={({ field }) => (<FormItem><FormLabel>{t('bathrooms')}</FormLabel><FormControl><Input type="number" placeholder={t('bathroomsPlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
+               <FormField control={form.control} name="floor" render={({ field }) => (<FormItem><FormLabel>{t('floor')}</FormLabel><FormControl><Input type="number" placeholder={t('floorPlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
+               <FormField control={form.control} name="area" render={({ field }) => (<FormItem><FormLabel>{t('area')}</FormLabel><FormControl><Input id="area-apt" type="number" placeholder={t('aptAreaPlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
             </div>
 
             <FormField
@@ -197,7 +199,7 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
               name="utilities"
               render={() => (
                 <FormItem>
-                  <div className="mb-4"><FormLabel>المرافق</FormLabel></div>
+                  <div className="mb-4"><FormLabel>{t('Utilities')}</FormLabel></div>
                    <div className="flex gap-4">
                     {utilityTypes.map((item) => (
                       <FormField
@@ -236,29 +238,29 @@ export function AddPropertyForm({ type }: AddPropertyFormProps) {
         )}
 
         {type === "land" && (
-            <FormField control={form.control} name="area" render={({ field }) => (<FormItem><FormLabel>المساحة (م²)</FormLabel><FormControl><Input id="area-land" type="number" placeholder="مثال: 600" {...field} /></FormControl><FormMessage /></FormItem>)} />
+            <FormField control={form.control} name="area" render={({ field }) => (<FormItem><FormLabel>{t('area')}</FormLabel><FormControl><Input id="area-land" type="number" placeholder={t('landAreaPlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
         )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField control={form.control} name="location" render={({ field }) => (<FormItem><FormLabel>المنطقة</FormLabel><FormControl><Input placeholder="مثال: حي الياسمين، الرياض" {...field} /></FormControl><FormMessage /></FormItem>)} />
-          <FormField control={form.control} name="price" render={({ field }) => (<FormItem><FormLabel>السعر (ريال)</FormLabel><FormControl><Input type="number" placeholder="مثال: 1,200,000" {...field} /></FormControl><FormMessage /></FormItem>)} />
+          <FormField control={form.control} name="location" render={({ field }) => (<FormItem><FormLabel>{t('region')}</FormLabel><FormControl><Input placeholder={t('regionPlaceholderAdd')} {...field} /></FormControl><FormMessage /></FormItem>)} />
+          <FormField control={form.control} name="price" render={({ field }) => (<FormItem><FormLabel>{t('price')}</FormLabel><FormControl><Input type="number" placeholder={t('pricePlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
         </div>
         
-        <FormField control={form.control} name="title" render={({ field }) => (<FormItem><FormLabel>عنوان الإعلان</FormLabel><FormControl><Input placeholder="مثال: شقة فاخرة للبيع..." {...field} /></FormControl><FormMessage /></FormItem>)} />
-        <FormField control={form.control} name="description" render={({ field }) => (<FormItem><FormLabel>{type === "apartment" ? "وصف الشقة" : "مواصفات الأرض"}</FormLabel><FormControl><Textarea placeholder="اكتب وصفاً تفصيلياً هنا..." {...field} /></FormControl><FormMessage /></FormItem>)} />
+        <FormField control={form.control} name="title" render={({ field }) => (<FormItem><FormLabel>{t('adTitle')}</FormLabel><FormControl><Input placeholder={t('adTitlePlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
+        <FormField control={form.control} name="description" render={({ field }) => (<FormItem><FormLabel>{type === "apartment" ? t('aptDescriptionLabel') : t('landDescriptionLabel')}</FormLabel><FormControl><Textarea placeholder={t('descriptionPlaceholder')} {...field} /></FormControl><FormMessage /></FormItem>)} />
 
         <FormField control={form.control} name="images" render={({ field: { onChange, ...props } }) => (
             <FormItem>
-                <FormLabel>صور العقار</FormLabel>
+                <FormLabel>{t('images')}</FormLabel>
                 <FormControl><Input type="file" multiple onChange={e => onChange(e.target.files)} {...props} /></FormControl>
-                <FormDescription>يمكنك رفع صور متعددة.</FormDescription>
+                <FormDescription>{t('imagesDescription')}</FormDescription>
                 <FormMessage />
             </FormItem>
         )} />
 
         <Button type="submit" className="w-full md:w-auto justify-self-end mt-4" disabled={isLoading}>
           {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-          إضافة العقار
+          {t('addButton')}
         </Button>
       </form>
     </Form>

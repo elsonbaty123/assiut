@@ -19,20 +19,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/context/auth-context";
-
-const formSchema = z.object({
-  email: z.string().email({
-    message: "الرجاء إدخال بريد إلكتروني صالح.",
-  }),
-  password: z.string().min(8, {
-    message: "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
-  }),
-});
+import { useTranslation } from "@/hooks/use-translation";
 
 export function LoginForm() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const { login } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+
+  const formSchema = z.object({
+    email: z.string().email({
+      message: t('validationEmail'),
+    }),
+    password: z.string().min(8, {
+      message: t('validationPasswordMin'),
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,10 +46,8 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
-    // Simulate API call for login
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    // In a real app, this would come from the API, and you would handle success/error
     const userName = values.email
       .split("@")[0]
       .replace(".", " ")
@@ -67,11 +67,9 @@ export function LoginForm() {
     setIsLoading(false);
 
     toast({
-      title: "تم تسجيل الدخول بنجاح!",
-      description: "جاري توجيهك إلى الصفحة الرئيسية.",
+      title: t('loginSuccessTitle'),
+      description: t('loginSuccessDescription'),
     });
-
-    // Redirect is handled by the `login` function in `auth-context`
   }
 
   return (
@@ -82,9 +80,9 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>البريد الإلكتروني</FormLabel>
+              <FormLabel>{t('email')}</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="m@example.com" {...field} />
+                <Input type="email" placeholder={t('emailPlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -96,16 +94,16 @@ export function LoginForm() {
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center">
-                <FormLabel>كلمة المرور</FormLabel>
+                <FormLabel>{t('password')}</FormLabel>
                 <Link
                   href="#"
                   className="mr-auto inline-block text-sm underline"
                 >
-                  نسيت كلمة المرور؟
+                  {t('forgotPassword')}
                 </Link>
               </div>
               <FormControl>
-                <Input type="password" placeholder="********" {...field} />
+                <Input type="password" placeholder={t('passwordPlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -113,12 +111,12 @@ export function LoginForm() {
         />
         <Button type="submit" className="w-full" disabled={isLoading}>
           {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-          دخول
+          {t('loginButton')}
         </Button>
         <div className="mt-4 text-center text-sm">
-          ليس لديك حساب؟{" "}
+          {t('noAccount')}{" "}
           <Link href="/signup" className="underline">
-            إنشاء حساب
+            {t('createAccount')}
           </Link>
         </div>
       </form>

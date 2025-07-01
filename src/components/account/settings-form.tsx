@@ -17,20 +17,22 @@ import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-const formSchema = z.object({
-  fullName: z.string().min(2, {
-    message: "الاسم الكامل يجب أن يكون حرفين على الأقل.",
-  }),
-  email: z.string().email({
-    message: "الرجاء إدخال بريد إلكتروني صالح.",
-  }),
-});
+import { useTranslation } from "@/hooks/use-translation";
 
 export function AccountSettingsForm() {
+  const { t } = useTranslation();
   const { user, login } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+
+  const formSchema = z.object({
+    fullName: z.string().min(2, {
+      message: t('validationFullNameMin'),
+    }),
+    email: z.string().email({
+      message: t('validationEmail'),
+    }),
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,14 +62,14 @@ export function AccountSettingsForm() {
 
     setIsLoading(false);
     toast({
-      title: "تم تحديث الملف الشخصي بنجاح!",
+      title: t('profileUpdateSuccess'),
     });
   }
 
   if (!user) {
       return (
           <div className="text-center text-muted-foreground">
-              الرجاء تسجيل الدخول لعرض هذه الصفحة.
+              {t('pleaseLogin')}
           </div>
       )
   }
@@ -80,9 +82,9 @@ export function AccountSettingsForm() {
           name="fullName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>الاسم الكامل</FormLabel>
+              <FormLabel>{t('fullName')}</FormLabel>
               <FormControl>
-                <Input placeholder="اسمك الكامل" {...field} />
+                <Input placeholder={t('fullNamePlaceholder')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -93,11 +95,11 @@ export function AccountSettingsForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>البريد الإلكتروني</FormLabel>
+              <FormLabel>{t('email')}</FormLabel>
               <FormControl>
                 <Input
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t('emailPlaceholder')}
                   {...field}
                   disabled
                 />
@@ -109,7 +111,7 @@ export function AccountSettingsForm() {
         <div className="flex justify-end">
           <Button type="submit" disabled={isLoading}>
             {isLoading && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
-            حفظ التغييرات
+            {t('saveChanges')}
           </Button>
         </div>
       </form>

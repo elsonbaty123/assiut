@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,14 +8,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SignUpForm } from "@/components/auth/signup-form";
+import { useTranslation } from "@/hooks/use-translation";
 
 export default function SignUpPage() {
+  const { t } = useTranslation();
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle className="text-2xl">إنشاء حساب جديد</CardTitle>
+        <CardTitle className="text-2xl">{t('signupTitle')}</CardTitle>
         <CardDescription>
-          أدخل معلوماتك أدناه لإنشاء حساب وتحديد دورك.
+          {t('signupDescription')}
         </CardDescription>
       </CardHeader>
       <CardContent>

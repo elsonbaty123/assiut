@@ -1,16 +1,21 @@
+"use client";
+
 import { PropertyCard } from "@/components/property-card";
 import { SearchForm } from "@/components/search-form";
 import type { Property } from "@/types";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/hooks/use-translation";
 
 const featuredProperties: Property[] = [
   {
     id: "1",
     title: "شقة فاخرة للبيع في وسط المدينة",
+    title_en: "Luxury Apartment for Sale in Downtown",
     type: "sale",
     unitType: ["residential", "furnished"],
     price: 1200000,
     location: "الرياض",
+    location_en: "Riyadh",
     area: 180,
     image: "https://placehold.co/600x400.png",
     bedrooms: 3,
@@ -23,10 +28,12 @@ const featuredProperties: Property[] = [
   {
     id: "2",
     title: "مكتب إداري للإيجار بموقع متميز",
+    title_en: "Administrative Office for Rent in a Prime Location",
     type: "rent",
     unitType: ["administrative"],
     price: 80000,
     location: "جدة",
+    location_en: "Jeddah",
     area: 120,
     image: "https://placehold.co/600x400.png",
     bedrooms: 0,
@@ -39,10 +46,12 @@ const featuredProperties: Property[] = [
   {
     id: "3",
     title: "شقة عائلية للإيجار",
+    title_en: "Family Apartment for Rent",
     type: "rent",
     unitType: ["residential"],
     price: 45000,
     location: "الدمام",
+    location_en: "Dammam",
     area: 150,
     image: "https://placehold.co/600x400.png",
     bedrooms: 3,
@@ -53,10 +62,12 @@ const featuredProperties: Property[] = [
   {
     id: "4",
     title: "أرض للبيع في حي الياسمين",
+    title_en: "Land for Sale in Al-Yasmin District",
     type: "sale",
     unitType: ["land"],
     price: 2500000,
     location: "الرياض",
+    location_en: "Riyadh",
     area: 600,
     image: "https://placehold.co/600x400.png",
     agent: { name: "شركة البناء الحديث", avatar: "https://placehold.co/100x100.png" },
@@ -65,10 +76,12 @@ const featuredProperties: Property[] = [
     {
     id: "5",
     title: "شقة مفروشة بإطلالة بحرية",
+    title_en: "Furnished Apartment with Sea View",
     type: "rent",
     unitType: ["residential", "furnished"],
     price: 90000,
     location: "جدة",
+    location_en: "Jeddah",
     area: 130,
     image: "https://placehold.co/600x400.png",
     bedrooms: 2,
@@ -81,10 +94,12 @@ const featuredProperties: Property[] = [
   {
     id: "6",
     title: "مساحة مكتبية مشتركة للإيجار",
+    title_en: "Coworking Office Space for Rent",
     type: "rent",
     unitType: ["administrative"],
     price: 5000,
     location: "الرياض",
+    location_en: "Riyadh",
     area: 25,
     image: "https://placehold.co/600x400.png",
     bedrooms: 0,
@@ -96,16 +111,18 @@ const featuredProperties: Property[] = [
 
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <>
       <section className="relative bg-primary/10 pt-16 md:pt-24 lg:pt-32">
         <div className="container mx-auto px-4 text-center">
-            <Badge variant="secondary" className="mb-4 text-lg">مساكن</Badge>
+            <Badge variant="secondary" className="mb-4 text-lg">{t('Masaakin')}</Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-primary-foreground/90">
-              اعثر على منزلك أو استثمارك القادم
+              {t('heroTitle')}
             </h1>
             <p className="mt-4 max-w-3xl mx-auto text-lg md:text-xl text-primary-foreground/70">
-              منصة متكاملة تجمع الملاك والسماسرة والعملاء. ابدأ البحث الآن.
+              {t('heroSubtitle')}
             </p>
         </div>
         <div className="relative container mx-auto px-4 mt-8 md:mt-12">
@@ -119,7 +136,7 @@ export default function Home() {
       <section className="py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold tracking-tight text-center mb-10">
-            عقارات مميزة
+            {t('Featured Properties')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProperties.map((property) => (

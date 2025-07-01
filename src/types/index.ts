@@ -1,10 +1,12 @@
 export type Property = {
   id: string;
   title: string;
+  title_en?: string;
   type: "rent" | "sale";
   unitType: ("administrative" | "residential" | "furnished" | "land")[];
   price: number;
   location: string;
+  location_en?: string;
   area: number;
   image: string;
   bedrooms?: number;
@@ -12,6 +14,7 @@ export type Property = {
   floor?: number;
   utilities?: ("gas" | "electricity" | "water")[];
   description?: string;
+  description_en?: string;
   agent: Agent;
   dataAiHint?: string;
 };

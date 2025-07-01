@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,14 +11,17 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslation } from "@/hooks/use-translation";
 
 const property = {
   id: "1",
   title: "شقة فاخرة للبيع في قلب الرياض",
+  title_en: "Luxury Apartment for Sale in the Heart of Riyadh",
   type: "sale" as const,
   unitType: ["residential", "furnished"],
   price: 1200000,
   location: "حي العليا، الرياض",
+  location_en: "Al Olaya, Riyadh",
   area: 180,
   images: [
     "https://placehold.co/800x600.png",
@@ -28,6 +33,7 @@ const property = {
   floor: 5,
   utilities: ["gas", "electricity", "water"] as ("gas" | "electricity" | "water")[],
   description: "شقة عصرية بتشطيبات فاخرة في برج سكني حديث. تتميز بإطلالات بانورامية على المدينة وموقع استراتيجي بالقرب من جميع الخدمات والمراكز التجارية. الشقة مؤثثة بالكامل بأثاث راقٍ وجاهزة للسكن الفوري. مثالية للعائلات التي تبحث عن نمط حياة مريح وفاخر.",
+  description_en: "A modern apartment with luxury finishes in a modern residential tower. It features panoramic city views and a strategic location close to all services and shopping centers. The apartment is fully furnished with elegant furniture and is ready for immediate occupancy. Ideal for families looking for a comfortable and luxurious lifestyle.",
   agent: { name: "شركة الأفق للعقارات", avatar: "https://placehold.co/100x100.png" },
   dataAiHint: "luxury apartment interior"
 };
@@ -39,29 +45,47 @@ const utilityIcons = {
 }
 
 export default function PropertyDetailsPage() {
+  const { t, language } = useTranslation();
+  
+  const displayTitle = language === 'ar' ? property.title : (property.title_en || property.title);
+  const displayLocation = language === 'ar' ? property.location : (property.location_en || property.location);
+  const displayDescription = language === 'ar' ? property.description : (property.description_en || property.description);
+
+  const unitTypeTranslations = {
+    residential: t('residential'),
+    administrative: t('administrative'),
+    furnished: t('furnished'),
+  }
+
+  const utilityTranslations = {
+    gas: t('gas'),
+    electricity: t('electricity'),
+    water: t('water'),
+  }
+
   return (
     <div className="container mx-auto py-12 px-4">
       <div className="grid lg:grid-cols-3 gap-12">
         <div className="lg:col-span-2">
-            <h1 className="text-3xl md:text-4xl font-bold mb-2">{property.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">{displayTitle}</h1>
             <div className="flex items-center gap-2 text-muted-foreground mb-4">
                 <MapPin className="w-5 h-5"/>
-                <span>{property.location}</span>
+                <span>{displayLocation}</span>
             </div>
             
             <div className="flex items-baseline gap-4 mb-6">
-                 <span className="text-4xl font-bold text-primary">{property.price.toLocaleString('ar-SA')} ريال</span>
-                {property.type === 'rent' && <span className="text-xl text-muted-foreground">/سنوي</span>}
+                 <span className="text-4xl font-bold text-primary">{property.price.toLocaleString(language === 'ar' ? 'ar-SA' : 'en-US')} {t('sar')}</span>
+                {property.type === 'rent' && <span className="text-xl text-muted-foreground">{t('perYear')}</span>}
             </div>
 
             <Card className="overflow-hidden mb-8">
               <CardContent className="p-0">
-                <Carousel className="w-full">
+                <Carousel className="w-full" dir={language}>
                   <CarouselContent>
                     {property.images.map((src, index) => (
                       <CarouselItem key={index}>
                         <Image
-                          alt={`${property.title} - صورة ${index + 1}`}
+                          alt={`${displayTitle} - image ${index + 1}`}
                           className="aspect-video w-full object-cover"
                           height={600}
                           src={src}
@@ -71,75 +95,71 @@ export default function PropertyDetailsPage() {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="right-16" />
-                  <CarouselNext />
+                  <CarouselPrevious className={language === 'ar' ? 'right-16' : 'left-16'} />
+                  <CarouselNext className={language === 'ar' ? 'left-4' : 'right-4'}/>
                 </Carousel>
               </CardContent>
             </Card>
 
             <div className="flex flex-wrap gap-2 mb-6">
-                <Badge variant="secondary">{property.type === 'sale' ? 'للبيع' : 'للإيجار'}</Badge>
+                <Badge variant="secondary">{property.type === 'sale' ? t('forSale') : t('forRent')}</Badge>
                 {property.unitType.map(type => (
                      <Badge key={type} variant="outline">
-                        {type === 'residential' && 'سكني'}
-                        {type === 'administrative' && 'إداري'}
-                        {type === 'furnished' && 'مفروش'}
+                        {unitTypeTranslations[type as keyof typeof unitTypeTranslations]}
                     </Badge>
                 ))}
             </div>
 
             <Separator className="my-8" />
             
-            <h2 className="text-2xl font-bold mb-4">المواصفات</h2>
+            <h2 className="text-2xl font-bold mb-4">{t('Specifications')}</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center mb-8">
                  <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <AreaChart className="w-8 h-8 text-primary"/>
-                         <span className="font-bold text-lg">{property.area} م²</span>
-                         <span className="text-sm text-muted-foreground">المساحة</span>
+                         <span className="font-bold text-lg">{property.area} {t('sqm')}</span>
+                         <span className="text-sm text-muted-foreground">{t('area')}</span>
                     </CardContent>
                 </Card>
                  <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <BedDouble className="w-8 h-8 text-primary"/>
                          <span className="font-bold text-lg">{property.bedrooms}</span>
-                         <span className="text-sm text-muted-foreground">غرف نوم</span>
+                         <span className="text-sm text-muted-foreground">{t('bedrooms')}</span>
                     </CardContent>
                 </Card>
                  <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <Bath className="w-8 h-8 text-primary"/>
                          <span className="font-bold text-lg">{property.bathrooms}</span>
-                         <span className="text-sm text-muted-foreground">حمامات</span>
+                         <span className="text-sm text-muted-foreground">{t('bathrooms')}</span>
                     </CardContent>
                 </Card>
                 <Card>
                     <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
                          <Building className="w-8 h-8 text-primary"/>
                          <span className="font-bold text-lg">{property.floor}</span>
-                         <span className="text-sm text-muted-foreground">الدور</span>
+                         <span className="text-sm text-muted-foreground">{t('floor')}</span>
                     </CardContent>
                 </Card>
             </div>
             
             <Separator className="my-8" />
 
-            <h2 className="text-2xl font-bold mb-4">الوصف</h2>
+            <h2 className="text-2xl font-bold mb-4">{t('Description')}</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-                {property.description}
+                {displayDescription}
             </p>
 
              <Separator className="my-8" />
 
-            <h2 className="text-2xl font-bold mb-4">المرافق</h2>
+            <h2 className="text-2xl font-bold mb-4">{t('Utilities')}</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {property.utilities && property.utilities.map(util =>(
                     <div key={util} className="flex items-center gap-2 p-3 bg-secondary/30 rounded-lg">
                         {utilityIcons[util]}
                         <span className="font-medium">
-                             {util === 'gas' && 'غاز'}
-                             {util === 'electricity' && 'كهرباء'}
-                             {util === 'water' && 'مياه'}
+                            {utilityTranslations[util]}
                         </span>
                     </div>
                 ))}
@@ -161,22 +181,22 @@ export default function PropertyDetailsPage() {
                 <CardContent>
                     <form className="space-y-4">
                          <div className="space-y-2">
-                            <Label htmlFor="name">الاسم</Label>
-                            <Input id="name" placeholder="اسمك الكامل" />
+                            <Label htmlFor="name">{t('contactName')}</Label>
+                            <Input id="name" placeholder={t('contactNamePlaceholder')} />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="email">البريد الإلكتروني</Label>
-                            <Input id="email" type="email" placeholder="بريدك الإلكتروني" />
+                            <Label htmlFor="email">{t('contactEmail')}</Label>
+                            <Input id="email" type="email" placeholder={t('contactEmailPlaceholder')} />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="phone">رقم الهاتف</Label>
-                            <Input id="phone" type="tel" placeholder="رقم هاتفك" />
+                            <Label htmlFor="phone">{t('contactPhone')}</Label>
+                            <Input id="phone" type="tel" placeholder={t('contactPhonePlaceholder')} />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="message">الرسالة</Label>
-                            <Textarea id="message" placeholder="أنا مهتم بهذا العقار وأود المزيد من التفاصيل..." defaultValue="أنا مهتم بهذا العقار وأود المزيد من التفاصيل..."/>
+                            <Label htmlFor="message">{t('contactMessage')}</Label>
+                            <Textarea id="message" placeholder={t('defaultMessage')} defaultValue={t('defaultMessage')}/>
                         </div>
-                        <Button type="submit" className="w-full">إرسال استفسار</Button>
+                        <Button type="submit" className="w-full">{t('sendMessage')}</Button>
                     </form>
                 </CardContent>
             </Card>

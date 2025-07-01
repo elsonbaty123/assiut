@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -7,22 +9,24 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AddPropertyForm } from "@/components/dashboard/add-property-form";
+import { useTranslation } from "@/hooks/use-translation";
 
 export default function AddPropertyPage() {
+  const { t, language } = useTranslation();
   return (
     <div className="container mx-auto py-12 px-4">
       <Card className="max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl">إضافة عقار جديد</CardTitle>
+          <CardTitle className="text-2xl">{t('addPropertyTitle')}</CardTitle>
           <CardDescription>
-            اختر نوع العقار واملأ التفاصيل المطلوبة.
+            {t('addPropertyDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="apartment" className="w-full" dir="rtl">
+          <Tabs defaultValue="apartment" className="w-full" dir={language === 'ar' ? 'rtl' : 'ltr'}>
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="apartment">شقة</TabsTrigger>
-              <TabsTrigger value="land">أرض</TabsTrigger>
+              <TabsTrigger value="apartment">{t('apartmentTab')}</TabsTrigger>
+              <TabsTrigger value="land">{t('landTab')}</TabsTrigger>
             </TabsList>
             <TabsContent value="apartment">
                 <AddPropertyForm type="apartment" />
