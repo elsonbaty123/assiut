@@ -37,10 +37,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const getDefaultAvatar = (role: User['role']): string => {
     switch (role) {
-        case 'admin': return 'https://placehold.co/128x128/600474/FFFFFF.png?text=A';
-        case 'owner': return 'https://placehold.co/128x128/D4AF37/000000.png?text=O';
-        case 'broker': return 'https://placehold.co/128x128/C0C0C0/000000.png?text=B';
-        case 'client': return 'https://placehold.co/128x128/A9A9A9/FFFFFF.png?text=C';
+        case 'admin': return 'https://placehold.co/128x128/2F4F4F/FFFFFF.png?text=Admin';
+        case 'owner': return 'https://placehold.co/128x128/D4AF37/000000.png?text=Owner';
+        case 'broker': return 'https://placehold.co/128x128/C0C0C0/000000.png?text=Broker';
+        case 'client': return 'https://placehold.co/128x128/A9A9A9/FFFFFF.png?text=Client';
         default: return 'https://placehold.co/128x128.png';
     }
 }
