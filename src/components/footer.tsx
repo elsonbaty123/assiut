@@ -1,3 +1,5 @@
+"use client";
+
 import { Building2 } from "lucide-react";
 import Link from "next/link";
 import { useTranslation } from "@/hooks/use-translation";
