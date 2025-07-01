@@ -32,16 +32,6 @@ export function Header() {
                 <Building2 className="h-6 w-6 text-primary" />
                 <span className="hidden font-bold sm:inline-block">{t('Masaakin')}</span>
             </Link>
-            <nav className="hidden items-center space-x-6 text-sm font-medium rtl:space-x-reverse md:flex">
-                {user && (user.role === "broker" || user.role === "owner") && (
-                <Link
-                    href="/dashboard/add-property"
-                    className="transition-colors hover:text-foreground/80 text-foreground"
-                >
-                    {t('Add Property')}
-                </Link>
-                )}
-            </nav>
         </div>
         
         <nav className="hidden items-center justify-center text-sm font-medium md:flex">
@@ -89,6 +79,11 @@ export function Header() {
                   {user.role === 'admin' && (
                     <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
                         <Link href="/admin/dashboard">{t('adminDashboardTitle')}</Link>
+                    </DropdownMenuItem>
+                  )}
+                  {(user.role === "broker" || user.role === "owner") && (
+                    <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                        <Link href="/dashboard/add-property">{t('Add Property')}</Link>
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
