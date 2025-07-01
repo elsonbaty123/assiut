@@ -9,31 +9,9 @@ import { AreaChart, Bath, BedDouble, Building, Droplets, Lightbulb, MapPin, Wind
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTranslation } from "@/hooks/use-translation";
 import { ChatInterface } from "@/components/property/chat-interface";
+import type { Property } from "@/types";
 
-const property = {
-  id: "1",
-  title: "شقة فاخرة للبيع في الزمالك",
-  title_en: "Luxury Apartment for Sale in Zamalek",
-  type: "sale" as const,
-  unitType: ["residential", "furnished"],
-  price: 3500000,
-  location: "الزمالك، القاهرة",
-  location_en: "Zamalek, Cairo",
-  area: 180,
-  images: [
-    "https://placehold.co/800x600.png",
-    "https://placehold.co/800x600.png",
-    "https://placehold.co/800x600.png",
-  ],
-  bedrooms: 3,
-  bathrooms: 2,
-  floor: 5,
-  utilities: ["gas", "electricity", "water"] as ("gas" | "electricity" | "water")[],
-  description: "شقة عصرية بتشطيبات فاخرة في برج سكني حديث. تتميز بإطلالات بانورامية على النيل وموقع استراتيجي بالقرب من جميع الخدمات والمراكز التجارية. الشقة مؤثثة بالكامل بأثاث راقٍ وجاهزة للسكن الفوري. مثالية للعائلات التي تبحث عن نمط حياة مريح وفاخر.",
-  description_en: "A modern apartment with luxury finishes in a modern residential tower. It features panoramic Nile views and a strategic location close to all services and shopping centers. The apartment is fully furnished with elegant furniture and is ready for immediate occupancy. Ideal for families looking for a comfortable and luxurious lifestyle.",
-  agent: { name: "شركة النيل للتعمير", avatar: "https://placehold.co/100x100.png" },
-  dataAiHint: "luxury apartment interior"
-};
+const property: Property | null = null;
 
 const utilityIcons = {
     gas: <Wind className="h-5 w-5 text-primary" />,
@@ -43,6 +21,15 @@ const utilityIcons = {
 
 export default function PropertyDetailsPage() {
   const { t, language } = useTranslation();
+
+  if (!property) {
+    return (
+        <div className="container mx-auto py-12 px-4 text-center">
+            <h1 className="text-3xl font-bold mb-4">{t('propertyNotFoundTitle')}</h1>
+            <p className="text-muted-foreground">{t('propertyNotFoundDescription')}</p>
+        </div>
+    )
+  }
   
   const displayTitle = language === 'ar' ? property.title : (property.title_en || property.title);
   const displayLocation = language === 'ar' ? property.location : (property.location_en || property.location);
@@ -79,7 +66,7 @@ export default function PropertyDetailsPage() {
               <CardContent className="p-0">
                 <Carousel className="w-full" dir={language}>
                   <CarouselContent>
-                    {property.images.map((src, index) => (
+                    {property.images?.map((src, index) => (
                       <CarouselItem key={index}>
                         <Image
                           alt={`${displayTitle} - image ${index + 1}`}

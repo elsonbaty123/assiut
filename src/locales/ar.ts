@@ -70,6 +70,8 @@ export const ar = {
   "typeYourMessage": "اكتب رسالتك...",
   "agentReply": "مرحباً! شكراً لاهتمامك بالعقار. أنا هنا لمساعدتك بأي أسئلة لديك.",
   "sendMessage": "إرسال رسالة",
+  "propertyNotFoundTitle": "العقار غير موجود",
+  "propertyNotFoundDescription": "العقار الذي تبحث عنه غير متوفر أو تم حذفه.",
 
   // Login Page
   "loginTitle": "تسجيل الدخول",

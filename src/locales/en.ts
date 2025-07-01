@@ -70,6 +70,8 @@ export const en = {
   "typeYourMessage": "Type your message...",
   "agentReply": "Hello! Thanks for your interest in the property. I'm here to help with any questions you have.",
   "sendMessage": "Send Message",
+  "propertyNotFoundTitle": "Property Not Found",
+  "propertyNotFoundDescription": "The property you are looking for is not available or has been removed.",
   
   // Login Page
   "loginTitle": "Login",
