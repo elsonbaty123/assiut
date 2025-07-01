@@ -17,66 +17,9 @@ import { cn } from "@/lib/utils";
 import type { Notification } from "@/types";
 
 const mockNotificationsData: { [key: string]: Notification[] } = {
-  owner: [
-    {
-      id: "1",
-      title: "newChatMessage",
-      description: "fromUser",
-      read: false,
-      href: "/my-chats",
-      createdAt: "5m ago",
-      avatar: "https://placehold.co/40x40/E2E8F0/1C2A48.png?text=CU",
-      avatarFallback: "CU",
-      params: { name: 'Client User' }
-    },
-    {
-      id: "2",
-      title: "propertyUpdate",
-      description: "propertyApproved",
-      read: false,
-      href: "/dashboard/my-properties",
-      createdAt: "1h ago",
-      avatar: "https://placehold.co/40x40/34D399/1C2A48.png?text=S",
-      avatarFallback: "S",
-    },
-     {
-      id: "4",
-      title: "newChatMessage",
-      description: "fromUser",
-      read: true,
-      href: "/my-chats",
-      createdAt: "2d ago",
-      avatar: "https://placehold.co/40x40/E2E8F0/1C2A48.png?text=B",
-      avatarFallback: "B",
-      params: { name: 'Broker User' }
-    },
-  ],
-  client: [
-    {
-      id: "3",
-      title: "newChatMessage",
-      description: "fromUser",
-      read: true,
-      href: "/my-chats",
-      createdAt: "1d ago",
-      avatar: "https://placehold.co/40x40/C0C0C0/000000.png?text=BU",
-      avatarFallback: "BU",
-      params: { name: 'Broker User' }
-    },
-  ],
-  broker: [
-     {
-      id: "5",
-      title: "newChatMessage",
-      description: "fromUser",
-      read: false,
-      href: "/my-chats",
-      createdAt: "15m ago",
-      avatar: "https://placehold.co/40x40/E2E8F0/1C2A48.png?text=CU",
-      avatarFallback: "CU",
-      params: { name: 'Client User' }
-    },
-  ]
+  owner: [],
+  client: [],
+  broker: [],
 };
 
 export function Notifications() {
