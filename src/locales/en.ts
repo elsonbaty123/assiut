@@ -218,5 +218,17 @@ export const en = {
   "myPropertiesDescription": "View and manage the properties you have listed.",
   "noPropertiesFoundTitle": "No Properties Found",
   "noPropertiesFoundDescription": "You haven't listed any properties yet. Get started by adding your first one.",
-  "addFirstProperty": "Add Your First Property"
+  "addFirstProperty": "Add Your First Property",
+
+  // Notifications
+  "notifications": "Notifications",
+  "unread": "Unread",
+  "read": "Read",
+  "markAllAsRead": "Mark all as read",
+  "noUnreadNotifications": "No unread notifications.",
+  "noNotifications": "You're all caught up!",
+  "newChatMessage": "New Chat Message",
+  "fromUser": "From: {name}",
+  "propertyUpdate": "Property Status Update",
+  "propertyApproved": "Your property listing has been approved."
 };

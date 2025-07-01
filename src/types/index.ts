@@ -23,3 +23,15 @@ export type Agent = {
     name: string;
     avatar: string;
 }
+
+export type Notification = {
+  id: string;
+  title: string;
+  description: string;
+  read: boolean;
+  href: string;
+  createdAt: string;
+  avatar: string;
+  avatarFallback: string;
+  params?: Record<string, string | number>;
+};

@@ -16,6 +16,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTranslation } from "@/hooks/use-translation";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
+import { Notifications } from "./notifications";
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -48,53 +49,56 @@ export function Header() {
             <LanguageToggle />
             <ThemeToggle />
             {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="relative h-8 w-8 rounded-full"
-                  >
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src={avatarSrc}
-                        alt={user.fullName}
-                        data-ai-hint="user avatar"
-                      />
-                      <AvatarFallback>{user.fullName.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56" align="end" forceMount>
-                  <DropdownMenuLabel className="font-normal" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-                    <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {user.fullName}
-                      </p>
-                      <p className="text-xs leading-none text-muted-foreground">
-                        {user.email}
-                      </p>
-                    </div>
-                  </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {user.role === 'admin' && (
+              <>
+                <Notifications />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="relative h-8 w-8 rounded-full"
+                    >
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage
+                          src={avatarSrc}
+                          alt={user.fullName}
+                          data-ai-hint="user avatar"
+                        />
+                        <AvatarFallback>{user.fullName.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
+                    <DropdownMenuLabel className="font-normal" dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">
+                          {user.fullName}
+                        </p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    {user.role === 'admin' && (
+                      <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                          <Link href="/admin/dashboard">{t('adminDashboardTitle')}</Link>
+                      </DropdownMenuItem>
+                    )}
+                    {(user.role === "broker" || user.role === "owner") && (
+                      <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                          <Link href="/dashboard/add-property">{t('Add Property')}</Link>
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
-                        <Link href="/admin/dashboard">{t('adminDashboardTitle')}</Link>
+                      <Link href="/account">{t('Account Settings')}</Link>
                     </DropdownMenuItem>
-                  )}
-                  {(user.role === "broker" || user.role === "owner") && (
-                    <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
-                        <Link href="/dashboard/add-property">{t('Add Property')}</Link>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={logout} dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                      {t('Logout')}
                     </DropdownMenuItem>
-                  )}
-                  <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
-                    <Link href="/account">{t('Account Settings')}</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={logout} dir={language === 'ar' ? 'rtl' : 'ltr'}>
-                    {t('Logout')}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </>
             ) : (
               <>
                 <Link

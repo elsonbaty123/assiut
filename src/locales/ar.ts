@@ -218,5 +218,17 @@ export const ar = {
   "myPropertiesDescription": "عرض وإدارة العقارات التي قمت بإدراجها.",
   "noPropertiesFoundTitle": "لم يتم العثور على عقارات",
   "noPropertiesFoundDescription": "لم تقم بإضافة أي عقارات بعد. ابدأ بإضافة عقارك الأول.",
-  "addFirstProperty": "أضف عقارك الأول"
+  "addFirstProperty": "أضف عقارك الأول",
+
+  // Notifications
+  "notifications": "الإشعارات",
+  "unread": "غير مقروءة",
+  "read": "مقروءة",
+  "markAllAsRead": "تحديد الكل كمقروء",
+  "noUnreadNotifications": "لا توجد إشعارات غير مقروءة.",
+  "noNotifications": "أنت على اطلاع دائم!",
+  "newChatMessage": "رسالة محادثة جديدة",
+  "fromUser": "من: {name}",
+  "propertyUpdate": "تحديث حالة العقار",
+  "propertyApproved": "تمت الموافقة على إعلان عقارك."
 };
