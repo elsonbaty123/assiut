@@ -26,40 +26,34 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center">
-        <div className="mr-4 hidden md:flex">
-          <Link href="/" className="mr-6 flex items-center space-x-2 rtl:space-x-reverse">
-            <Building2 className="h-6 w-6 text-primary" />
-            <span className="hidden font-bold sm:inline-block">{t('Masaakin')}</span>
-          </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium rtl:space-x-reverse">
-            <Link
-              href="/"
-              className="transition-colors hover:text-foreground/80 text-foreground"
-            >
-              {t('Home')}
+        
+        <div className="flex flex-1 items-center justify-start">
+            <Link href="/" className="mr-6 flex items-center space-x-2 rtl:space-x-reverse">
+                <Building2 className="h-6 w-6 text-primary" />
+                <span className="hidden font-bold sm:inline-block">{t('Masaakin')}</span>
             </Link>
-            {user && (user.role === "broker" || user.role === "owner") && (
-               <Link
-                href="/dashboard/add-property"
-                className="transition-colors hover:text-foreground/80 text-foreground"
-              >
-                {t('Add Property')}
-              </Link>
-            )}
-            {user && user.role === "admin" && (
+            <nav className="hidden items-center space-x-6 text-sm font-medium rtl:space-x-reverse md:flex">
+                {user && (user.role === "broker" || user.role === "owner") && (
                 <Link
-                href="/admin/dashboard"
-                className="transition-colors hover:text-foreground/80 text-foreground"
+                    href="/dashboard/add-property"
+                    className="transition-colors hover:text-foreground/80 text-foreground"
                 >
-                {t('adminDashboardTitle')}
+                    {t('Add Property')}
                 </Link>
-            )}
-          </nav>
+                )}
+            </nav>
         </div>
-        <div className="flex flex-1 items-center justify-between space-x-2 rtl:space-x-reverse md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* Can add a command menu here in the future */}
-          </div>
+        
+        <nav className="hidden items-center justify-center text-sm font-medium md:flex">
+            <Link
+                href="/"
+                className="transition-colors hover:text-foreground/80 text-foreground"
+            >
+                {t('Home')}
+            </Link>
+        </nav>
+
+        <div className="flex flex-1 items-center justify-end space-x-2 rtl:space-x-reverse">
           <nav className="flex items-center gap-2">
             <LanguageToggle />
             <ThemeToggle />
@@ -92,6 +86,11 @@ export function Header() {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  {user.role === 'admin' && (
+                    <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
+                        <Link href="/admin/dashboard">{t('adminDashboardTitle')}</Link>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem asChild dir={language === 'ar' ? 'rtl' : 'ltr'}>
                     <Link href="/account">{t('Account Settings')}</Link>
                   </DropdownMenuItem>
