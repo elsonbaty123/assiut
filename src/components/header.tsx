@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -44,6 +45,14 @@ export function Header() {
               >
                 {t('Add Property')}
               </Link>
+            )}
+            {user && user.role === "admin" && (
+                <Link
+                href="/admin/dashboard"
+                className="transition-colors hover:text-foreground/80 text-foreground"
+                >
+                {t('adminDashboardTitle')}
+                </Link>
             )}
           </nav>
         </div>

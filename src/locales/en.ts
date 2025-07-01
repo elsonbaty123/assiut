@@ -1,3 +1,4 @@
+
 export const en = {
   // General
   "Masaakin": "Masaakin",
@@ -79,7 +80,7 @@ export const en = {
   "noAccount": "Don't have an account?",
   "createAccount": "Sign up",
   "loginSuccessTitle": "Login successful!",
-  "loginSuccessDescription": "Redirecting you to the homepage.",
+  "loginSuccessDescription": "Redirecting you to the dashboard.",
   "loginFailedTitle": "Login Failed",
   "loginFailedDescription": "Invalid email or password.",
   "validationEmail": "Please enter a valid email address.",
@@ -141,5 +142,12 @@ export const en = {
   "validationUnitTypeRequired": "You must select at least one unit type.",
   "validationBedroomsMin": "Number of rooms cannot be negative.",
   "validationBathroomsMin": "Number of bathrooms cannot be negative.",
-  "validationFloorMin": "Floor number cannot be negative."
+  "validationFloorMin": "Floor number cannot be negative.",
+  
+  // Admin
+  "adminLoginTitle": "Admin Portal",
+  "adminLoginDescription": "Enter your credentials to access the dashboard.",
+  "adminDashboardTitle": "Admin Dashboard",
+  "welcomeAdmin": "Welcome back, {name}",
+  "adminDashboardDescription": "From here you can manage all aspects of the application."
 };

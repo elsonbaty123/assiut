@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
@@ -6,7 +7,7 @@ import { useRouter } from "next/navigation";
 interface User {
   fullName: string;
   email: string;
-  role: "client" | "broker" | "owner";
+  role: "client" | "broker" | "owner" | "admin";
   password?: string;
 }
 
@@ -29,6 +30,7 @@ const initialUsers: User[] = [
     { fullName: "Broker User", email: "broker@example.com", password: "password123", role: "broker" },
     { fullName: "Owner User", email: "owner@example.com", password: "password123", role: "owner" },
     { fullName: "Client User", email: "client@example.com", password: "password123", role: "client" },
+    { fullName: "Admin User", email: "admin@example.com", password: "password123", role: "admin" },
 ];
 
 
@@ -45,7 +47,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (foundUser) {
         const { password, ...userToSet } = foundUser;
         setUser(userToSet);
-        router.push("/");
+        if (userToSet.role === 'admin') {
+            router.push("/admin/dashboard");
+        } else {
+            router.push("/");
+        }
         return true;
     }
     return false;
@@ -87,8 +93,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 
   const logout = () => {
+    const wasAdmin = user?.role === 'admin';
     setUser(null);
-    router.push("/login");
+    if (wasAdmin) {
+        router.push("/admin/login");
+    } else {
+        router.push("/login");
+    }
   };
 
   return (

@@ -1,3 +1,4 @@
+
 export const ar = {
   // General
   "Masaakin": "مساكن",
@@ -79,7 +80,7 @@ export const ar = {
   "noAccount": "ليس لديك حساب؟",
   "createAccount": "إنشاء حساب",
   "loginSuccessTitle": "تم تسجيل الدخول بنجاح!",
-  "loginSuccessDescription": "جاري توجيهك إلى الصفحة الرئيسية.",
+  "loginSuccessDescription": "جاري توجيهك إلى لوحة التحكم.",
   "loginFailedTitle": "فشل تسجيل الدخول",
   "loginFailedDescription": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "validationEmail": "الرجاء إدخال بريد إلكتروني صالح.",
@@ -141,5 +142,12 @@ export const ar = {
   "validationUnitTypeRequired": "يجب عليك اختيار نوع وحدة واحد على الأقل.",
   "validationBedroomsMin": "عدد الغرف لا يمكن أن يكون سالبًا.",
   "validationBathroomsMin": "عدد الحمامات لا يمكن أن يكون سالبًا.",
-  "validationFloorMin": "رقم الدور لا يمكن أن يكون سالبًا."
+  "validationFloorMin": "رقم الدور لا يمكن أن يكون سالبًا.",
+
+  // Admin
+  "adminLoginTitle": "بوابة المسؤول",
+  "adminLoginDescription": "أدخل بياناتك للوصول إلى لوحة التحكم.",
+  "adminDashboardTitle": "لوحة تحكم المسؤول",
+  "welcomeAdmin": "مرحباً بك، {name}",
+  "adminDashboardDescription": "من هنا يمكنك إدارة جميع جوانب التطبيق."
 };
