@@ -17,7 +17,7 @@ import { useTranslation } from "@/hooks/use-translation";
 import { ThemeToggle } from "./theme-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { Notifications } from "./notifications";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
 export function Header() {
@@ -162,6 +162,10 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side={language === 'ar' ? 'left' : 'right'}>
+                <SheetHeader className="sr-only">
+                  <SheetTitle>Menu</SheetTitle>
+                  <SheetDescription>Main navigation menu</SheetDescription>
+                </SheetHeader>
                 <div className="flex items-center border-b pb-4 mb-4">
                   <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-primary"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
