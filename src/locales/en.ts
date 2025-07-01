@@ -79,6 +79,8 @@ export const en = {
   "createAccount": "Sign up",
   "loginSuccessTitle": "Login successful!",
   "loginSuccessDescription": "Redirecting you to the homepage.",
+  "loginFailedTitle": "Login Failed",
+  "loginFailedDescription": "Invalid email or password.",
   "validationEmail": "Please enter a valid email address.",
   "validationPasswordMin": "Password must be at least 8 characters.",
   

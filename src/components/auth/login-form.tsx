@@ -48,28 +48,22 @@ export function LoginForm() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const userName = values.email
-      .split("@")[0]
-      .replace(".", " ")
-      .replace(/\b\w/g, (l) => l.toUpperCase());
-    const userRole = values.email.includes("broker")
-      ? "broker"
-      : values.email.includes("owner")
-      ? "owner"
-      : "client";
-
-    login({
-      fullName: userName,
-      email: values.email,
-      role: userRole,
-    });
+    const success = await login(values);
 
     setIsLoading(false);
 
-    toast({
-      title: t('loginSuccessTitle'),
-      description: t('loginSuccessDescription'),
-    });
+    if (success) {
+        toast({
+            title: t('loginSuccessTitle'),
+            description: t('loginSuccessDescription'),
+        });
+    } else {
+        toast({
+            variant: "destructive",
+            title: t('loginFailedTitle'),
+            description: t('loginFailedDescription'),
+        });
+    }
   }
 
   return (

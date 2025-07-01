@@ -79,6 +79,8 @@ export const ar = {
   "createAccount": "إنشاء حساب",
   "loginSuccessTitle": "تم تسجيل الدخول بنجاح!",
   "loginSuccessDescription": "جاري توجيهك إلى الصفحة الرئيسية.",
+  "loginFailedTitle": "فشل تسجيل الدخول",
+  "loginFailedDescription": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
   "validationEmail": "الرجاء إدخال بريد إلكتروني صالح.",
   "validationPasswordMin": "كلمة المرور يجب أن تكون 8 أحرف على الأقل.",
 

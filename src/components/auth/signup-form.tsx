@@ -31,7 +31,7 @@ import { useAuth } from "@/context/auth-context";
 export function SignUpForm() {
   const { t, language } = useTranslation();
   const { toast } = useToast();
-  const { login } = useAuth();
+  const { signup } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const formSchema = z.object({
@@ -62,10 +62,11 @@ export function SignUpForm() {
     setIsLoading(true);
     await new Promise((resolve) => setTimeout(resolve, 1500));
     
-    login({
+    await signup({
         fullName: values.fullName,
         email: values.email,
-        role: values.role
+        role: values.role,
+        password: values.password
     });
     
     setIsLoading(false);
