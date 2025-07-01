@@ -202,5 +202,12 @@ export const en = {
   "type": "Type",
   "sale": "Sale",
   "rent": "Rent",
-  "admin": "Admin"
+  "admin": "Admin",
+
+  // Bottom Navbar & My Chats
+  "myAccount": "My Account",
+  "myChats": "My Chats",
+  "myChatsDescription": "View all your conversations with property agents.",
+  "relatedTo": "Regarding",
+  "noChatsFound": "No chats found yet."
 };

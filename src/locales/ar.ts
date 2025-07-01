@@ -202,5 +202,12 @@ export const ar = {
   "type": "النوع",
   "sale": "بيع",
   "rent": "إيجار",
-  "admin": "مسؤول"
+  "admin": "مسؤول",
+
+  // Bottom Navbar & My Chats
+  "myAccount": "حسابي",
+  "myChats": "محادثاتي",
+  "myChatsDescription": "عرض جميع محادثاتك مع وكلاء العقارات.",
+  "relatedTo": "بخصوص",
+  "noChatsFound": "لا توجد محادثات حتى الآن."
 };
