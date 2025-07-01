@@ -127,19 +127,23 @@ export default function Home() {
     }
 
     if (filters.region) {
-      const searchTerm = filters.region.toLowerCase();
-      results = results.filter(p => 
-        p.location.toLowerCase().includes(searchTerm) || 
-        p.location_en?.toLowerCase().includes(searchTerm)
-      );
+      const searchTerm = filters.region.toLowerCase().trim();
+      if (searchTerm) {
+        results = results.filter(p => 
+          p.location.toLowerCase().includes(searchTerm) || 
+          (p.location_en && p.location_en.toLowerCase().includes(searchTerm))
+        );
+      }
     }
 
-    if (filters.maxPrice) {
-      results = results.filter(p => p.price <= Number(filters.maxPrice));
+    const maxPrice = Number(filters.maxPrice);
+    if (!isNaN(maxPrice) && maxPrice > 0) {
+      results = results.filter(p => p.price <= maxPrice);
     }
 
-    if (filters.minArea) {
-      results = results.filter(p => p.area >= Number(filters.minArea));
+    const minArea = Number(filters.minArea);
+    if (!isNaN(minArea) && minArea > 0) {
+      results = results.filter(p => p.area >= minArea);
     }
 
     setDisplayedProperties(results);
